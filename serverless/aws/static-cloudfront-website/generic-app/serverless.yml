@@ -1,4 +1,4 @@
-service: static-cloudfront-website
+service: generic-app
 
 provider:
   name: aws
