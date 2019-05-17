@@ -1,0 +1,12 @@
+service: sila-python
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: ${opt:stage, "dev"}
+  region: ${opt:region, "us-west-2"}
+  profile: ${opt:profile, "default"}
+
+functions:
+  main:
+    handler: main.handler
