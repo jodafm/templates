@@ -10,3 +10,6 @@ provider:
 functions:
   main:
     handler: main.handler
+
+plugins:
+  - serverless-python-requirements

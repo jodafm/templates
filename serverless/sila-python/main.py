@@ -1,7 +1,13 @@
 import json
 
+# Sila Dependencies
+from silasdk import App
 
 def handler(event, context):
+    print(f"Event: {event}")
+
+    silaApp = App("SANDBOX", "app_private_key", "app_handle")
+
     body = {
         "message": "Go Serverless v1.0! Your function executed successfully!",
         "input": event
@@ -14,7 +20,7 @@ def handler(event, context):
 
     return response
 
-
 # Testing locally
 if __name__ == "__main__":
-    handler({}, {})
+    response = handler({}, {})
+    print(f"Response: {response}")
