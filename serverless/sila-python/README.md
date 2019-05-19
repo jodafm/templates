@@ -279,3 +279,6 @@ To test the Serverless Framework packaging we can run:
 serverless package
 ```
 
+You are most likely going to hit this error, `must supply either home or prefix/exec-prefix -- not both`. To get past it we can look at this [thread](https://github.com/UnitedIncome/serverless-python-requirements/issues/70) on the `serverless-python-requirements` GitHub.
+
+
