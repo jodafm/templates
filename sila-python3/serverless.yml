@@ -11,5 +11,10 @@ functions:
   main:
     handler: main.handler
 
+custom:
+  pythonRequirements:
+    usePipenv: true
+    dockerImage: lambci/lambda:build-python3.7
+
 plugins:
   - serverless-python-requirements

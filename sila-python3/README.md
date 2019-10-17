@@ -268,8 +268,11 @@ plugins:
 
 custom:
   pythonRequirements:
-    usePipenv: false
+    usePipenv: true
+    dockerImage: lambci/lambda:build-python3.7
 ```
+
+We need to have `usePipenv: true` set this tells the plugin to use `pipenv` versus using `pip`. We also need to add the `dockerImage` option and point it at the `lambci/lambda:build-python3.7` docker container. This docker container was built by `lambdaci` to match the Python 3.7 lambda environment we will be deploying to on AWS.
 
 #### Test the package
 
@@ -281,4 +284,13 @@ serverless package
 
 You are most likely going to hit this error, `must supply either home or prefix/exec-prefix -- not both`. To get past it we can look at this [thread](https://github.com/UnitedIncome/serverless-python-requirements/issues/70) on the `serverless-python-requirements` GitHub.
 
+
+To fix this error, we need to create a new file called `setup.cfg` at the root of our project. With the following content:
+
+```bash
+[install]
+prefix=
+```
+
+For more information on why we're doing this, check out this other [GitHub issue](https://github.com/UnitedIncome/serverless-python-requirements/issues/107). Basically, there is a problem with where HomeBrew installs Python packages and this is a workaround.
 
