@@ -19,5 +19,5 @@ phases:
       # - sls offline
       # - newman run test.postman_collection.json
       # - newman run https://www.getpostman.com/collections/093607256e1a6b4c0deb
-      - sls offline start --exec "newman run https://www.getpostman.com/collections/093607256e1a6b4c0deb & newman run test.postman_collection.json"
+      - sls offline start --exec "newman run https://www.getpostman.com/collections/093607256e1a6b4c0deb & newman runssadw test.postman_collection.json"
       - echo "SUCCESSFULLY PASSED SERVER!"
