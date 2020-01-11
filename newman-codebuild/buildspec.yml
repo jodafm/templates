@@ -5,7 +5,6 @@ phases:
     runtime-versions:
       nodejs: 10
     commands:
-      - cd templates/newman-codebuild
       - npm install serverless -g
       - npm install newman -g
       - serverless -v
