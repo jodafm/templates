@@ -16,6 +16,7 @@ phases:
       # - sls deploy -v
   post_build:
     commands:
-      - sls offline
-      - newman run test.postman_collection.json
-      - newman run https://www.getpostman.com/collections/093607256e1a6b4c0deb
+      # - sls offline
+      # - newman run test.postman_collection.json
+      # - newman run https://www.getpostman.com/collections/093607256e1a6b4c0deb
+      - sls offline start --exec "newman run https://www.getpostman.com/collections/093607256e1a6b4c0deb & newman run test.postman_collection.json"
