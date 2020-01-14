@@ -2,9 +2,17 @@
 
 * [Overview](#overview)
 
+* [Breakdown](#breakdown)
+
 * [Publish](#publish)
 
 ## Overview
+
+The first place you should start is with the official [Serverless Framework documentation on components](https://github.com/serverless/components/tree/cloud). Then if you're looking for an _opinionated_ breakdown keep reading, starting with the [Breakdown](#breakdown).
+
+## Breakdown
+
+This is meant to act as a line-by-line breakdown of the core ingredients of making components.
 
 ### Top level files/directories
 
@@ -18,6 +26,29 @@ src/ examples/ serverless.component.yml ...
 * The `/examples` folder helps debug and build by keeping a local example
 
 * The `serverless.component.yml` file is where you define your component for the serverless registry
+
+### serverless.component.yml
+
+```yaml
+name: sample-component
+version: 0.0.1
+author: serverlessguru
+org: serverless-guru
+description: Sample Component Template to get started
+keywords: aws, serverless, component, template
+repo: https://github.com/serverless-guru/templates/tree/master/sls-component-starter
+readme: ''
+license: MIT
+main: ./src
+```
+
+* `name` - is what will be published to the serverless registry
+
+* `version` - is how you increment your component, you can't deploy another version `0.0.1` once it's published on the next update you need to use `0.0.2` and so on.
+
+* `main` - this tells the `serverless publish` command where to look for your `serverless.js` file
+
+The other fields such as `license`, `readme`, `repo`, `keywords`, `description`, `org`, `author`, etc. are all more of meta-tag properties. They may still be required, but the most important properties are `name`, `version`, and `main`.
 
 ### src/ directory
 
