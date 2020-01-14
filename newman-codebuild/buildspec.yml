@@ -9,13 +9,20 @@ phases:
       - npm install newman -g
       - cd newman-codebuild
       - npm install
-  build:
-    commands:
       - serverless -v
       - newman -v
-      # - sls deploy -v
+  build:
+    commands:
+      - sls offline start --exec "newman run test.postman_collection.json"
+      - if [ $? == 1 ]; then exit; fi
+      - echo "SUCCESSFULLY PASSED TESTS!"
+      - sls deploy
   post_build:
     commands:
-      - sls offline
-      - newman run test.postman_collection.json
-      - newman run https://www.getpostman.com/collections/093607256e1a6b4c0deb
+
+      # failing script:
+      # - sls offline start --exec "newman run https://www.getpostman.com/collections/093607256e1a6b4c0deb"
+      # - if [ $? == 1 ]; then exit; fi
+
+      # multi-script example. This does NOT work for our use case because only the final script's result is evaluated in following "$?" statement
+      # - sls offline start --exec "newman run https://www.getpostman.com/collections/093607256e1a6b4c0deb & newman run test.postman_collection.json"
