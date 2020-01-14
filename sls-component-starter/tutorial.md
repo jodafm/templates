@@ -1,8 +1,8 @@
 # Tutorial walk through of building a Serverless Component
 
-[Overview](#overview)
-[Publish](#publish)
+* [Overview](#overview)
 
+* [Publish](#publish)
 
 ## Overview
 
