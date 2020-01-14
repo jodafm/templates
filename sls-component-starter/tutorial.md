@@ -23,7 +23,7 @@ src/ examples/ serverless.component.yml ...
 
 ```console
 $ ls src/
-serverless.js utils.js package.json node_modules/
+serverless.js utils.js package.json
 ```
 
 * The `serverless.js` file is the component entry point
@@ -37,12 +37,6 @@ serverless.js utils.js package.json node_modules/
 Note: You DO NOT need to install the `aws-sdk` and `@serverless/core` dependencies even if you use them in your `serverless.js` file or `utils.js` file. They are automatically installed on the component environment.
 
 #### src/serverless.js
-
-```console
-$ ls src
-serverless.js utils.js package.json node_modules/
-$ cat serverless.js
-```
 
 ```javascript
 const { Component } = require('@serverless/core')
@@ -116,12 +110,6 @@ The `serverless.js` file has a couple of core functions:
 
 #### src/utils.js
 
-```console
-$ ls src
-serverless.js utils.js package.json node_modules/
-$ cat utils.js
-```
-
 ```javascript
 const aws = require('aws-sdk')
 
@@ -180,12 +168,6 @@ module.exports = {
 
 #### src/package.json
 
-```console
-$ ls src
-serverless.js utils.js package.json
-$ cat package.json
-```
-
 ```json
 {
     "name": "sample-component",
@@ -218,11 +200,7 @@ $ ls examples
 
 #### examples/serverless.yml
 
-```console
-$ ls examples
-.env serverless.yml
-$ cat examples/serverless.yml
-
+```yaml
 # serverless.yml
 
 component: sample-component  # The name of the Component in the Registry
@@ -249,10 +227,6 @@ Some to notice as well, we are able to reference other arguments in the `serverl
 #### examples/.env
 
 ```console
-$ ls examples
-.env serverless.yml
-$ cat examples/.env
-
 AWS_ACCESS_KEY_ID=XXX
 AWS_SECRET_ACCESS_KEY=XXX
 ```
@@ -277,11 +251,9 @@ New version:
 version: 0.0.2
 ```
 
-You can then publish by running the following commands.
+You can then publish by running the following command at the root of your project.
 
 ```console
-$ ls
-src/ serverless.component.yml
 $ sls publish
 ```
 
