@@ -6,10 +6,10 @@ This is a template for adding Newman to a test project and automatically testing
 
 &nbsp;
 
-1. [Write Postman Tests](Write-Postman-Tests)
-2. [Create Newman Tests](Create-Newman-Tests)
-3. [Create Buildspec File](Create-Buildspec-File)
-4. [Deploy](Deploy)
+1. [Write Postman Tests](#Write-Postman-Tests)
+2. [Create Newman Tests](#Create-Newman-Tests)
+3. [Create Buildspec File](#Create-Buildspec-File)
+4. [Deploy](#Deploy)
 
 ## Writing Postman Tests
 
