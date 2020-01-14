@@ -4,6 +4,7 @@ This component is simply a template to get started. It will create a s3 bucket a
 
 &nbsp;
 
+- [0. Tutorial](#tutorial)
 - [1. Install](#1-install)
 - [2. Create](#2-create)
 - [3. Configure](#3-configure)
@@ -11,6 +12,12 @@ This component is simply a template to get started. It will create a s3 bucket a
 - [New to Components?](#new-to-components)
 
 &nbsp;
+
+
+### 0. Tutorial
+
+If you're looking to learn how to build serverless components take a look at this [Walk through tutorial](./tutorial.md).
+
 
 ### 1. Install
 
