@@ -26,7 +26,7 @@ functions:
   test:
     name: ${self:custom.base}-test
     handler: index.handler
-    description: test function for initial API deployment
+    description: Returns "Hello World". Dummy function for API deployment
     events:
       - http:
           path: /test

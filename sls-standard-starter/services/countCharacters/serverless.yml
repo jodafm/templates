@@ -18,8 +18,6 @@ provider:
   stage: ${opt:stage, "dev"}
   region: ${opt:region, "us-west-2"}
   profile: ${opt:profile, "default"}
-  environment:
-    REGION: ${self:provider.region}
   apiGateway:
     restApiId: ${output:${self:app}-api.ApiId}
     restApiRootResourceId: ${output:${self:app}-api.ApiResourceId}
@@ -31,11 +29,8 @@ functions:
   api:
     name: ${self:custom.base}
     handler: ./handlers/index.handler
+    description: Returns the length of a given message
     events:
-      - http:
-          path: /countCharacters
-          method: POST
-          cors: true
       - http:
           path: /countCharacters
           method: POST
