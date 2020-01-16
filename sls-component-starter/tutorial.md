@@ -21,7 +21,7 @@ $ ls
 src/ examples/ serverless.component.yml ...
 ```
 
-* The `src/` folder holds your component logic.
+* The `src/` folder holds your component logic
 
 * The `/examples` folder helps debug and build by keeping a local example
 
@@ -44,7 +44,7 @@ main: ./src
 
 * `name` - is what will be published to the serverless registry
 
-* `version` - is how you increment your component, you can't deploy another version `0.0.1` once it's published on the next update you need to use `0.0.2` and so on.
+* `version` - is how you increment your component. You can't deploy another version `0.0.1` once it's published so the next update would need something like `0.0.2`
 
 * `main` - this tells the `serverless publish` command where to look for your `serverless.js` file
 
@@ -63,7 +63,7 @@ serverless.js utils.js package.json
 
 * The `package.json` file holds our serverless component dependencies
 
-* The `node_modules` file holds the dependencies are serverless component needs
+* The `node_modules` file holds the dependencies our serverless component needs
 
 Note: You DO NOT need to install the `aws-sdk` and `@serverless/core` dependencies even if you use them in your `serverless.js` file or `utils.js` file. They are automatically installed on the component environment.
 
@@ -131,9 +131,9 @@ The `serverless.js` file has a couple of core functions:
 
 * `this.status('Deploying')` - is a way to print a message in the CLI
 
-* `this.debug('Aborting')` - is a way to print an extra message during deployment, all `this.debug` statements are printed when using `sls deploy --debug`
+* `this.debug('Aborting')` - is a way to print optional messages during deployment. All `this.debug` statements are printed in the CLI when using `sls deploy --debug`
 
-* `this.state` - is a way to persist values between deployments, we can save state by using `this.save()` which will use whatever you've put into `this.state` during the exection. This function comes from the parent Class which we are inherinting from called `Component`.
+* `this.state` - is a way to persist values between deployments, we can save state by using `this.save()` which will use whatever you've put into `this.state` during the execution. This function comes from the parent Class which we are inheriting from called `Component`.
 
 * `this.credentials.aws` - is how we reference the AWS credentials object which was pulled in from our `.env` file or other source. We can then pass this credentials object to `aws-sdk` functions to create AWS resources or handle some other functionality.
 
@@ -189,11 +189,11 @@ module.exports = {
 }
 ```
 
-* `getClients` - takes our AWS credentials (e.g. `this.credentials.aws`), creates an instance of AWS S3 using the `aws-sdk` and will return the AWS S3 client back to our `serverless.js` for further use.
+* `getClients` - takes our AWS credentials (e.g. `this.credentials.aws`), creates an instance of AWS S3 using the `aws-sdk`, and returns the AWS S3 client back to our `serverless.js` for further use.
 
-* `createS3Bucket` - simply uses the AWS S3 client and creates an AWS S3 bucket e.g. `s3.createBucket()`
+* `createS3Bucket` - simply uses the AWS S3 client to create an AWS S3 bucket e.g. `s3.createBucket()`
 
-* `removeS3Bucket` - simply uses the AWS S3 client and removes an AWS S3 bucket e.g. `s3.deleteBucket()`
+* `removeS3Bucket` - simply uses the AWS S3 client to remove an AWS S3 bucket e.g. `s3.deleteBucket()`
 
 * `config` - equals the arguments passed via our `serverless.yml` under the `inputs` section and any `defaults` or other properties we've added in the `serverless.js` file. We then use this `config` object to pass the AWS S3 client our bucket name (e.g. `config.bucket`)
 
@@ -243,17 +243,17 @@ inputs:
   bucket: ${app}-${name}-${stage}
 ```
 
-As you can see above the `serverless.yml` file in our `examples/` directory is referencing a component called `sample-component` this will align with the `serverles.component.yml` at the root level of our project.
+As you can see above the `serverless.yml` file in our `examples/` directory is referencing a component called `sample-component` that will align with the `serverles.component.yml` at the root level of our project.
 
 The `org` and `app` will align with our Serverless Framework Pro Organization and App name.
 
-The `name` at the root level will specify the "instance of this Component".
+The `name` at the root level will specify the instance of this Component.
 
-The `stage` will allow us to create multiple stage deployments of this component by using a reference syntax like this, `my-lambda-function-${stage}` which translates to `my-lambda-function-dev`.
+The `stage` will allow us to create multiple stage deployments of this component by using a reference syntax like `my-lambda-function-${stage}` which translates to `my-lambda-function-dev`.
 
 The `inputs` section is where we feed arguments to our component. We are passing a single argument to the underlying `sample-component` called `bucket`. This `bucket` argument is the name of our AWS S3 bucket.
 
-Some to notice as well, we are able to reference other arguments in the `serverless.yml` by using the following syntax, `${app}-${name}-${stage}` this ensures that we are keeping some degree of uniformity.
+It's worth noting that we are able to reference other arguments in the `serverless.yml` by using a syntax like `${app}-${name}-${stage}`. This ensures that we are keeping some degree of uniformity.
 
 #### examples/.env
 
@@ -262,7 +262,7 @@ AWS_ACCESS_KEY_ID=XXX
 AWS_SECRET_ACCESS_KEY=XXX
 ```
 
-The `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are derived from creating an AWS IAM User with the proper permissions to make a deployment. IMPORTANT: make sure that the `.env` file is in your `.gitignore`.
+The `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are derived from an AWS IAM User with the proper permissions to make a deployment. IMPORTANT: make sure that the `.env` file is in your `.gitignore`.
 
 ## Publish
 
