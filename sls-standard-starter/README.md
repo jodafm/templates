@@ -8,9 +8,13 @@
 
 ## Overview
 
-This tutorial explains how to create a project using the Serverless Framework and then deploy its resources to AWS. This particular example sets up a template API Gateway and then adds additional endpoints with subsequent deployments.
+This tutorial explains how to create a project using the Serverless Framework and then deploy its resources to AWS. Our example sets up a template API Gateway before adding an additional endpoint.
 
-A full list of Serverless-specific properties for AWS can be found at the [Serverless.yml Reference](https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/). General Serverless documentation can be found [here](https://serverless.com/framework/docs/). Lastly since Serverless Framework structure utilizes CloudFormation all those commands work as well - for anything not found above you can read the [CloudFormation docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
+A full list of Serverless-specific properties for AWS can be found at the [Serverless.yml Reference](https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/). 
+
+General Serverless documentation can be found [here](https://serverless.com/framework/docs/). 
+
+Serverless Framework builds on CloudFormation. To learn more read the [CloudFormation docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
 
 ## File Breakdown
 
@@ -37,9 +41,9 @@ $ ls resources/api/
 .serverless/ serverless.yml index.js ...
 ```
 
-* `serverless.yml` - the core build file required for Serverless functionality. Commands will typically run based on what's included.
+* `serverless.yml` - the core build file required for Serverless functionality.
 * `index.js` - a handler file written for our dummy API function. THis is specific to our API service.
-* `.serverless/` - a `gitignore` Serverless resource folder that auto-populates on build
+* `.serverless/` - a Serverless resource folder that auto-populates on build. Ours is on `.gitignore` and not committed
 
 Everything else at this level relates to general npm/git functions:
 * `package.json`
@@ -109,14 +113,14 @@ outputs:
 ```
 The yml file can be broken down into the following chunks:
 
-* `org` & `app` - when using the Serverless dashboard include the organization and app names at the top of the document. This will connect your project to the dashboard. (**only works with Serverless Dashboard**)
+* `org` & `app` - when using the Serverless dashboard include your organization and app names at the top of the document. This will connect your project to the dashboard. (**Serverless Dashboard only**)
 * `service` - the name of the resource being deployed.
 * `provider` - Lists various project attributes. For more detail on variables look [here](https://github.com/serverless-guru/docs/blob/master/serverless-framework/serverless-syntax.md).
 * `plugins` - an optional section for including plugins. In this case we're import serverless-offline which is helpful for local API testing.
-* `package` - a manual list of files to include and exclude on build. By default Serverless will use every file found at the root directory which is both resource-intensive and insecure. A solid method is to exclude all resources by default and then call out the files & folders you want to use individually.
+* `package` - a manual list of files to include and exclude on build. By default Serverless will use every file found at the root directory which is both resource-intensive and insecure. A solid method is to exclude all resources by default and then call out the files & folders you want to use individually. This process is especially important for importing `lib/` files.
 * `custom` - local variables can be defined here. In this case we created a "base" variable that can be used for consistent naming across the document by referencing `${self:custom.base}`
 * `functions` - a list of Lambda functions. The important note here is that we're actually using this section to implicitly create a reusable API Gateway endpoint. The details under the `test` header are all for our newly defined test endpoint - you can edit the name and function as you please.
-* `outputs` - creates three output variables `ApiEndpoint`, `ApiId`, and `ApiResourceId` once deployment is finished. These will then be available to future projects through the Serverless Dashboard. (**only works with Serverless Dashboard**)
+* `outputs` - creates three output variables `ApiEndpoint`, `ApiId`, and `ApiResourceId` once deployment is finished. These will then be available to future projects through the Serverless Dashboard. (**Serverless Dashboard only**)
 
 #### resources/api/index.js
 
@@ -129,7 +133,7 @@ module.exports.handler = async event => {
 };
 ```
 
-We are exporting a handler for use in our `test` function in `serverless.yml`. This is a basic example that simply returns the same statusCode and body whenever the endpoint is invoked. For more complicated functions we can add as much NodeJS code as needed before returning a response.
+We are exporting a handler for use in our `test` function in `serverless.yml`. This is a basic example that simply returns a static statusCode and body whenever the endpoint is invoked.
 
 #### resources/api/.serverless
 
@@ -214,11 +218,11 @@ module.exports.handler = async event => {
 };
 ```
 
-Just as with the former example we have an exported handler with a return block. This one uses a small amount of editing based on an expected user input of "message".
+Just as with the former example we have an exported handler with a return block. This one uses a small amount of editing based on an expected user input of "message". Additional NodeJS code can be added for more complex functionality.
 
 ## Deploy
 
-This general flow works for all Serverless projects.
+This general flow works for most compartmentalized Serverless projects:
 
 ### 1. Install Serverless
 
@@ -253,11 +257,11 @@ $ sls deploy
 
 #### Deployment Order and Resource Coupling
 
-When deploy like the above it's important to bear two things in mind:
+When deploying it's important to bear two things in mind:
 * What order do your deploys need to be executed in?
 * What locations do these deploys need to be executed from?
 
-In this case we run `resources/api` before `services/countCharacters`: the service deployment will **fail** if run first since it's written to pull outputs from an existing deployment. This tight coupling is only important on the initial deployment and any updates to new outputs, otherwise you are free and encouraged to manage them separately.
+In this example we ran `resources/api` before `services/countCharacters` because the service deployment will **fail** if run first - it's written to pull outputs from an existing deployment. This tight coupling is only important on the initial deployment and any future updates to new outputs. Beyond that you are free and encouraged to manage them separately.
 
 #### Scripting Deployments
 
@@ -283,10 +287,12 @@ sls deploy --stage $stage --region $region --profile $profile -v
 cd ../../
 ```
 
+This would be a "Deploy all" type script for initial deployments. For future deploys it's more efficient to just deploy the resources you need.
+
 #### Monorepo vs. Separated Structure
 
-It's worth noting that these files could all share a monorepo with a single root-level `serverless.yml` file. Project setup and resource sharing is generally easier this way and it can be great for testing connections or building small projects. Generally we encourage a separated structure like this example for a number of reasons:
-* Individual **deployments are faster** since the entire app isn't being reevaluated on every change
-* **Project security** is easier when repo access can be managed granularly - a monorepo means frontend, backend, and data all share the same deployment.
+It's worth noting that these files could have been structured as a monorepo with a single root-level `serverless.yml`. Project setup and resource sharing is generally easier this way and it can be great for testing connections or building small projects. That said we generally encourage a separated structure like the example for a number of reasons:
+* Individual **deployments are faster** since the entire app isn't being reevaluated on each change
+* **Project security** is easier when repo access can be managed granularly - a monorepo means frontend, backend, and data all share the same deployment & resources
 * Servers, databases, and other **core services are safer** since their resources are maintained separately
 * **Fewer deployment conflicts** arise when each team/dev/resource has its own deployment - what happens if the frontend and backend deploy changes at the same time?
