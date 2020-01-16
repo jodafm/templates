@@ -13,7 +13,7 @@ const defaults = {
 class SampleComponent extends Component {
   async deploy(inputs) {
 
-    this.status('Deploying')
+    await this.status('Deploying')
     const config = { ...defaults, ...inputs }
     config.timestamp = Date.now()
   
@@ -32,13 +32,13 @@ class SampleComponent extends Component {
   }
 
   async remove() {
-    this.status('Removing')
+    await this.status('Removing')
     if (!this.state.bucket) {
-      this.debug(`Aborting removal. Bucket name not found in state.`)
+      await this.debug(`Aborting removal. Bucket name not found in state.`)
       return
     }
     const { s3 } = getClients(this.credentials.aws, this.state.region)
-    this.debug(`Deleting stack ${this.state.stackName}.`)
+    await this.debug(`Deleting stack ${this.state.stackName}.`)
     await removeS3Bucket(s3, this.state)
     this.state = {}
     await this.save()
