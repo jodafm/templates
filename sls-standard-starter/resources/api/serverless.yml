@@ -31,17 +31,7 @@ functions:
       - http:
           path: /test
           method: any
-          cors:
-            origin: '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
-              - version
-              - x-uuid
+          cors: true
 outputs:
   ApiEndpoint:
     Fn::Join:
