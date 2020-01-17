@@ -113,14 +113,14 @@ outputs:
 ```
 The yml file can be broken down into the following chunks:
 
-* `org` & `app` - when using the Serverless dashboard include your organization and app names at the top of the document. This will connect your project to the dashboard. (**Serverless Dashboard only**)
+* `org` & `app` - when using the Serverless Framework Pro include your organization and app names at the top of the document. This will connect your project to the dashboard. (**Serverless Framework Pro only**)
 * `service` - the name of the resource being deployed.
 * `provider` - Lists various project attributes. For more detail on variables look [here](https://github.com/serverless-guru/docs/blob/master/serverless-framework/serverless-syntax.md).
 * `plugins` - an optional section for including plugins. In this case we're import serverless-offline which is helpful for local API testing.
 * `package` - a manual list of files to include and exclude on build. By default Serverless will use every file found at the root directory which is both resource-intensive and insecure. A solid method is to exclude all resources by default and then call out the files & folders you want to use individually. This process is especially important for importing `lib/` files.
 * `custom` - local variables can be defined here. In this case we created a "base" variable that can be used for consistent naming across the document by referencing `${self:custom.base}`
 * `functions` - a list of Lambda functions. The important note here is that we're actually using this section to implicitly create a reusable API Gateway endpoint. The details under the `test` header are all for our newly defined test endpoint - you can edit the name and function as you please.
-* `outputs` - creates three output variables `ApiEndpoint`, `ApiId`, and `ApiResourceId` once deployment is finished. These will then be available to future projects through the Serverless Dashboard. (**Serverless Dashboard only**)
+* `outputs` - creates three output variables `ApiEndpoint`, `ApiId`, and `ApiResourceId` once deployment is finished. These will then be available to future projects through the Serverless Framework Pro. (**Serverless Framework Pro only**)
 
 #### resources/api/index.js
 
@@ -197,7 +197,7 @@ functions:
 
 The individual sections are near identical to the one above as they are both creating Lambda functions with API Gateway endpoints. It's worth comparing the differences between the `test` and `api` functions. The two important features here are: 
 * Our previous deployed API resource is being reused by referencing it in the `Provider: apiGateway:` section. 
-* variables are being pulled using `${output:}` which reference the outputs created in our `resources/api` yml.  (**Serverless Dashboard only**). For more on outputs read [here](https://github.com/serverless-guru/docs/blob/master/serverless-framework/serverless-syntax.md).
+* variables are being pulled using `${output:}` which reference the outputs created in our `resources/api` yml.  (**Serverless Framework Pro only**). For more on outputs read [here](https://github.com/serverless-guru/docs/blob/master/serverless-framework/serverless-syntax.md).
 
 For more template examples with other resources read [here](https://github.com/serverless-guru/templates).
 
