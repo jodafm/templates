@@ -1,0 +1,13 @@
+org: serverlessguru
+app: sls-fargate-eks
+service: ${self:app}
+provider:
+  name: aws
+  stage: ${opt:stage, "dev"}
+  region: ${opt:region, "us-west-2"}
+resources:
+  Resources:
+    - ${file(./resources/vpc.yml)}
+    - ${file(./resources/iam.yml)}
+    - ${file(./resources/security-groups.yml)}
+    - ${file(./resources/eks.yml)}

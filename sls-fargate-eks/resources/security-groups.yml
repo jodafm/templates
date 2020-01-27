@@ -1,0 +1,82 @@
+# *** Security Groups ***
+KubernetesClusterMasterSecurityGroup:
+  Type: AWS::EC2::SecurityGroup
+  Properties:
+    GroupDescription: Allow EKS Cluster communication with worker nodes
+    VpcId:
+      Ref: KubernetesClusterVPC
+    SecurityGroupEgress:
+      - IpProtocol: -1
+        FromPort: 0
+        ToPort: 0
+        CidrIp: 0.0.0.0/0
+    Tags:
+      -
+        Key: Name
+        Value: ${self:service}-${self:provider.stage}
+# OPTIONAL: Allow inbound traffic from your local workstation external IP
+#           to the Kubernetes. You will need to replace A.B.C.D below with
+#           your real IP. Services like icanhazip.com can help you find this.
+KubernetesClusterMasterFromWorkstationSecurityGroupRule:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties: 
+    CidrIp: 204.101.226.68/32
+    Description: Allow workstation to communicate with the EKS cluster API Server
+    FromPort: 443
+    IpProtocol: tcp
+    ToPort: 443
+    GroupId:
+      Ref: KubernetesClusterMasterSecurityGroup
+NodeSecurityGroup:
+  Type: AWS::EC2::SecurityGroup
+  Properties:
+    GroupDescription: Security group for all nodes in the EKS cluster
+    VpcId:
+      Ref: KubernetesClusterVPC
+    Tags:
+      -
+        Key: Name
+        Value: ${self:service}-${self:provider.stage}
+NodeSecurityGroupIngress:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties:
+    Description: Allow node to communicate with each other
+    GroupId:
+      Ref: NodeSecurityGroup
+    SourceSecurityGroupId:
+      Ref: NodeSecurityGroup
+    IpProtocol: '-1'
+    FromPort: 0
+    ToPort: 65535
+NodeSecurityGroupFromWorkstationIngress:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties:
+    Description: Allow workstation to connect to EC2 nodes (for debugging)
+    GroupId:
+      Ref: NodeSecurityGroup
+    IpProtocol: 'tcp'
+    FromPort: 22
+    ToPort: 22
+    CidrIp: 204.101.226.68/32
+NodeSecurityGroupFromControlPlaneIngress:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties:
+    Description: Allow worker Kubelets and pods to receive communication from the cluster control plane
+    GroupId:
+      Ref: NodeSecurityGroup
+    SourceSecurityGroupId:
+      Ref: KubernetesClusterMasterSecurityGroup
+    IpProtocol: tcp
+    FromPort: 1025
+    ToPort: 65535
+KubernetesClusterMasterSecurityGroupIngressFromNodes:
+  Type: AWS::EC2::SecurityGroupIngress
+  Properties:
+    Description: Allow pods to communicate with the cluster API Server
+    GroupId:
+      Ref: KubernetesClusterMasterSecurityGroup
+    SourceSecurityGroupId:
+      Ref: NodeSecurityGroup
+    IpProtocol: tcp
+    ToPort: 443
+    FromPort: 443
