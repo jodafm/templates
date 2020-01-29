@@ -92,11 +92,11 @@ query getUsers {
 
 1. Confirm that you have an API Key created
 
-2. Manually copy the GraphQL schema in and save the schema
+2. Manually copy the GraphQL schema in from this project (`components/appsync/src/schema.graphql`) and save the schema
 
 3. Manually create a DataSource of AWS Lambda pointed at the lambda function you deployed in this stack (`components/lambda`)
 
-4. Manually set the request mapping template and response mapping template from this stack (`components/appsync/src/vtl`)
+4. Navigate to `Schema` in the AppSync console, select the GraphQL Query of `getUsers`, manually set the request mapping template and response mapping template copying from `components/appsync/src/vtl`
 
 5. Open the queries tab and run
 
