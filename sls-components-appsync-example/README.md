@@ -2,9 +2,9 @@
 
 This will create an AppSync API with a single Lambda connection, lambda layer for dependencies, IAM role, and AppSync API.
 
-[Setup](#setup)
-[Deploy](#deploy)
-[Test](#test)
+* [Setup](#setup)
+* [Deploy](#deploy)
+* [Test](#test)
 
 ## Setup
 
