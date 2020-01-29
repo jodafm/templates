@@ -64,10 +64,10 @@ $ npm run deploy appsync
 4. Add query and run
 
 ```graphql
-query getUsers {
-    getUsers {
-        name
-    }
+query getUsersById {
+  getUsersById(id: "1") {
+    name
+  }
 }
 ```
 

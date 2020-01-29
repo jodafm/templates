@@ -1,7 +1,7 @@
 org: serverlessguru
 app: component-app
-component: aws-app-sync@dev   # <-- @dev for beta changes, aws-app-sync for stable
-name: sls-appsync-example-api
+component: aws-app-sync   # <-- @dev for beta changes, aws-app-sync for stable
+name: sls-appsync-example-api-3
 
 inputs:
   name: ${name}-${stage}
@@ -18,5 +18,10 @@ inputs:
     - dataSource: exampleLambda
       type: Query
       field: getUsers
-      request: ./src/vtl/request.vtl
-      response: ./src/vtl/response.vtl
+      request: ./vtl/getUsers/request.vtl
+      response: ./vtl/response.vtl
+    - dataSource: exampleLambda
+      type: Query
+      field: getUsersById
+      request: ./vtl/getUsers/request.vtl
+      response: ./vtl/response.vtl

@@ -13,6 +13,8 @@ then
 
     (cd components/iam && sls deploy --debug)
 
+    sleep 120
+
     echo "*** Deploying Lambda Layer ***"
 
     (cd components/layer && sls deploy --debug)
