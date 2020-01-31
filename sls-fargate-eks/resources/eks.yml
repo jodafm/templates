@@ -1,3 +1,4 @@
+# Required for v1
 KubernetesCluster:
   Type: "AWS::EKS::Cluster"
   Properties:
@@ -16,8 +17,6 @@ KubernetesCluster:
 # *** Need to add ***
 # Application Load Balancer - ELB
 # routes traffic to EKS container
-
-# 
 
 # Future Optimization not v1
 SpotNodeLaunchConfig:
