@@ -1,13 +1,17 @@
-org: serverlessguru
-app: sls-fargate-eks
+org: serverlessguru  # <-- change to your org
+app: sls-fargate-eks  # <-- change to your app name
 service: ${self:app}
 provider:
   name: aws
-  stage: ${opt:stage, "dev"}
+  stage: ${opt:stage, "dev"}  # <-- change to your default stage
   region: ${opt:region, "us-east-1"}
+custom:
+  # Serverless Framework Pro params/outputs
+  params:
+    vpcStackName: <networking_app_name>:${self:provider.stage}:${self:provider.region}:<service_name>-vpc
 resources:
   Resources:
-    - ${file(./resources/vpc.yml)}
+#     - ${file(./resources/vpc.yml)}
     - ${file(./resources/iam.yml)}
     - ${file(./resources/security-groups.yml)}
     - ${file(./resources/eks.yml)}
