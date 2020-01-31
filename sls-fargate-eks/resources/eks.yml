@@ -12,6 +12,14 @@ KubernetesCluster:
     RoleArn:
       Fn::GetAtt: [ EksKubernetesServiceRole, Arn ]
     Version: "1.14"
+
+# *** Need to add ***
+# Application Load Balancer - ELB
+# routes traffic to EKS container
+
+# 
+
+# Future Optimization not v1
 SpotNodeLaunchConfig:
   Type: AWS::AutoScaling::LaunchConfiguration
   Properties:
@@ -28,6 +36,8 @@ SpotNodeLaunchConfig:
     SecurityGroups:
       - Ref: NodeSecurityGroup
     # startup script
+    # might be able to put into separate yaml file or even reference the bash script directly?
+    # UserData: ${file(startup.bash)}
     UserData:
       Fn::Base64:
         Fn::Join:
@@ -92,6 +102,8 @@ SpotNodeLaunchConfig:
             - "         --stack ${self:service}-${self:provider.stage} "
             - "         --resource NodeGroup "
             - "         --region ${self:provider.region}"
+
+# Future optimization, not v1
 SpotNodeGroup:
   Type: AWS::AutoScaling::AutoScalingGroup
   Properties:
