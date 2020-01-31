@@ -1,16 +1,17 @@
 KubernetesCluster:
   Type: "AWS::EKS::Cluster"
   Properties:
-    Name: ${self:service}-${self:provider.stage}
+    Name: ${self:service}-${self:provider.stage}-eks-cluster
     ResourcesVpcConfig:
+      # need to import output from networking stack
       SecurityGroupIds:
-        - Ref: KubernetesClusterMasterSecurityGroup
+        - ${output:${self:custom.params.vpcStackName}.VPCSecurityGroup}
       SubnetIds:
-        - Ref: KubernetesClusterSubnetA
-        - Ref: KubernetesClusterSubnetB
+        - ${output:${self:custom.params.vpcStackName}.SubnetA}
+        - ${output:${self:custom.params.vpcStackName}.SubnetB}
     RoleArn:
       Fn::GetAtt: [ EksKubernetesServiceRole, Arn ]
-    Version: "1.10"
+    Version: "1.14"
 SpotNodeLaunchConfig:
   Type: AWS::AutoScaling::LaunchConfiguration
   Properties:
