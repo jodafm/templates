@@ -7,7 +7,9 @@ const lambda = new AWS.Lambda({
     region: REGION
 });
 
-const lambdaArnList = [];
+const lambdaArnList = [
+    // Lambda ARNs go here
+];
 
 exports.handler = function () {    
     try {

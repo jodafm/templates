@@ -13,15 +13,15 @@ provider:
         - 'lambda:InvokeFunction'
       Resource: '*'
   environment:
-    CONCURRENCY: ${self:custom.concurrency} #default
+    CONCURRENCY: ${self:custom.concurrency} 
     REGION: ${self:provider.region}
 
 custom:
   base: ${self:service}-${self:provider.stage}
-  concurrency: ${opt:concurrency, '1'}
+  concurrency: ${opt:concurrency, '1'} #Update default concurrency here
 
 functions:
   warmer:
     handler: src/index.handler
     events:
-      - schedule: rate(15 minutes)
+      - schedule: rate(15 minutes) #Update refresh rate here
