@@ -1,3 +1,5 @@
+
+# Required for V1
 EksKubernetesServiceRole:
   Type: AWS::IAM::Role
   Properties:
@@ -13,7 +15,8 @@ EksKubernetesServiceRole:
     ManagedPolicyArns:
       - 'arn:aws:iam::aws:policy/AmazonEKSClusterPolicy'
       - 'arn:aws:iam::aws:policy/AmazonEKSServicePolicy'
-# EKS Nodes
+
+# gives EKS Nodes access to communciate with AWS resources
 NodeInstanceRole:
   Type: AWS::IAM::Role
   Properties:
@@ -27,8 +30,8 @@ NodeInstanceRole:
           Action: sts:AssumeRole
     Path: "/"
     Policies:
-      - 
-        PolicyName: node
+      # leave this
+      - PolicyName: node
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
@@ -43,8 +46,8 @@ NodeInstanceRole:
                 - ecr:ListImages
                 - ecr:BatchGetImage
               Resource: "*"
-      - 
-        PolicyName: cni
+      # leave this
+      - PolicyName: cni
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
@@ -61,8 +64,8 @@ NodeInstanceRole:
                 - ec2:AssignPrivateIpAddresses
                 - tag:TagResources
               Resource: "*"
-      - 
-        PolicyName: eks
+      # leave this
+      - PolicyName: eks
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
@@ -71,8 +74,9 @@ NodeInstanceRole:
               Action:
                 - eks:DescribeCluster
               Resource: "*"
-      - 
-        PolicyName: s3-management
+      # this is where you could add your own permissions
+      # here we are giving S3 access for put, get, list, delete
+      - PolicyName: s3-management
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
@@ -90,8 +94,7 @@ NodeInstanceRole:
                     -
                       - Fn::GetAtt: [ S3BucketAwseksspotserverlessdemodevuploads, Arn ]
                       - "*"
-            - 
-              Effect: Allow
+            - Effect: Allow
               Action:
                 - s3:PutObject
                 - s3:GetObject
@@ -104,24 +107,21 @@ NodeInstanceRole:
                     -
                       - Fn::GetAtt: [ S3BucketAwseksspotserverlessdemodevthumbnails, Arn ]
                       - "*"
-            - 
-              Effect: Allow
+            - Effect: Allow
               Action:
                 - s3:HeadBucket
               Resource: '*'
-      - 
-        PolicyName: ClusterAutoscaler
+      # leave this
+      - PolicyName: ClusterAutoscaler
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
-            -
-              Effect: Allow
+            - Effect: Allow
               Action:
                 - ec2:DescribeRegions
                 - ec2:DescribeInstances
               Resource: "*"
-            -
-              Effect: Allow
+            - Effect: Allow
               Action:
                 - ecr:GetAuthorizationToken
                 - ecr:BatchCheckLayerAvailability
@@ -131,8 +131,7 @@ NodeInstanceRole:
                 - ecr:ListImages
                 - ecr:BatchGetImage
               Resource: "*"
-            -
-              Effect: Allow
+            - Effect: Allow
               Action:
                 - autoscaling:DescribeAutoScalingGroups
                 - autoscaling:DescribeAutoScalingInstances
@@ -141,6 +140,9 @@ NodeInstanceRole:
                 - autoscaling:DescribeTags
                 - autoscaling:TerminateInstanceInAutoScalingGroup
               Resource: "*"
+
+# the role above is attached to an AWS IAM profile
+# which then is given to each EKS container
 NodeInstanceProfile:
   Type: AWS::IAM::InstanceProfile
   Properties:
