@@ -11,7 +11,7 @@ KubernetesCluster:
         - ${output:${self:custom.params.vpcStackName}.SubnetA}
         - ${output:${self:custom.params.vpcStackName}.SubnetB}
     RoleArn:
-      Fn::GetAtt: [ EksKubernetesServiceRole, Arn ]
+      Fn::GetAtt: [ EksKubernetesServiceRole, Arn ]  # <-- created by iam.yml
     Version: "1.14"
 
 # *** Need to add ***
