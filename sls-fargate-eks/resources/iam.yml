@@ -1,4 +1,3 @@
-
 # Required for V1
 EksKubernetesServiceRole:
   Type: AWS::IAM::Role
@@ -16,6 +15,8 @@ EksKubernetesServiceRole:
       - 'arn:aws:iam::aws:policy/AmazonEKSClusterPolicy'
       - 'arn:aws:iam::aws:policy/AmazonEKSServicePolicy'
 
+# Required for v1, but need to attach manually when creating the EKS container
+# In v2, we can attach this role automatically to the auto scaling group
 # gives EKS Nodes access to communciate with AWS resources
 NodeInstanceRole:
   Type: AWS::IAM::Role
