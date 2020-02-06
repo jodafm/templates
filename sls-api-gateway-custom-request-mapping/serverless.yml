@@ -1,0 +1,25 @@
+service: custom-request-mapping
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, "dev"}
+  region: ${opt:region, "us-west-2"}
+  profile: ${opt:profile, "serverlessguru-internal"}
+  
+
+custom:
+  base: ${self:service}-${self:provider.stage}
+
+functions:
+  warmer:
+    handler: src/index.handler
+    events:
+      - http:
+          path: /whatever
+          method: GET
+          cors: true
+          integration: lambda
+          request:
+            template:
+              application/json: '{"key-1": "$context.value-1", "key-2": "$context.value-2"}'
+            passThrough: WHEN_NO_TEMPLATES
