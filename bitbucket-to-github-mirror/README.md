@@ -1,3 +1,11 @@
+## Highlights
+
+* Push to BitBucket triggers API Gateway which triggers AWS Lambda
+
+* AWS Lambda clones the BitBucket repository onto the AWS Lambda then pushes the latest code to GitHub
+
+* Once the code hits GitHub it triggers the Serverless Framework Pro CI/CD which will deploy the updates
+
 ## Supports
 
 * nodejs12.x runtime
