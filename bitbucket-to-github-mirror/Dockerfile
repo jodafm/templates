@@ -11,4 +11,6 @@ RUN npm install
 
 COPY index.js /app
 
+COPY tests/ /app
+
 COPY serverless.yml /app

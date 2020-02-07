@@ -86,12 +86,13 @@ exports.handler = async event => {
             },
             true /* ignoreCertErrors */
         );
-        console.log('pushResult', pushResult);
+        console.log('Sync to GitHub was successful');
         return {
             statusCode: 200,
             body: 'Sync to GitHub was successful'
         }
     } catch(error) {
+        console.log('something went wrong', error);
         return {
             statusCode: 500,
             body: JSON.stringify(error)
