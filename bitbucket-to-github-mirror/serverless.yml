@@ -20,6 +20,7 @@ functions:
   webhook:
     name: ${self:custom.base}-bb-webhook
     handler: index.handler
+    description: bitbucket webhook lambda
     package:
       include:
         - node_modules/**
