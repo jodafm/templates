@@ -15,7 +15,7 @@ const GITHUB_ORG_OR_USERNAME = process.env.GITHUB_ORG_OR_USERNAME;
 exports.handler = async event => {
 
     let body = JSON.parse(event.body);
-    // console.log(JSON.stringify(body, null, 2));
+    console.log(JSON.stringify(body, null, 2));
     let commitName = body.push.changes[0].new.target.author.user.display_name;
     let commitMessage = body.push.changes[0].new.target.message;
     let rawEmail = body.push.changes[0].new.target.author.raw;
@@ -27,6 +27,23 @@ exports.handler = async event => {
     let bitbucketURL = `https://${BITBUCKET_USERNAME}@bitbucket.org/${BITBUCKET_ORG_OR_USERNAME}/${repoName}.git`;
     let directoryWhereCodeIsCloned = "/tmp/repositories";
     let fullPathToClonedCode = `${directoryWhereCodeIsCloned}/${repoName}`;
+
+    console.log({
+        commitName,
+        commitMessage,
+        rawEmail,
+        commitEmail,
+        branchName,
+        repoName,
+        githubURL,
+        bitbucketURL,
+        directoryWhereCodeIsCloned,
+        fullPathToClonedCode,
+        BITBUCKET_USERNAME,
+        BITBUCKET_ORG_OR_USERNAME,
+        GITHUB_USERNAME,
+        GITHUB_ORG_OR_USERNAME
+    })
 
     try {
         //The github options
@@ -68,6 +85,15 @@ exports.handler = async event => {
         let commitResult = await repo.createCommit("HEAD", author, committer, commitMessage, oid, [parent]);
         console.log('commitResult', commitResult);
         let remote = await Git.Remote.createAnonymous(repo, githubURL);
+        let lastCommit = await repo.getHeadCommit();
+        try {
+            let getBranchResult = await repo.getBranch(branchName);
+            console.log('getBranchResult', getBranchResult);
+        } catch (error) {
+            console.log('error getting branch, creating branch');
+            let createBranchResult = await repo.createBranch(branchName, lastCommit, 0);
+            console.log('createBranchResult', createBranchResult);
+        }
         let pushResult = await remote.push(
             // TODO: make branch dynamic
             [`+refs/heads/${branchName}:refs/heads/${branchName}`],
