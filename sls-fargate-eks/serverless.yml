@@ -6,12 +6,19 @@ provider:
   stage: ${opt:stage, "dev"}  # <-- change to your default stage
   region: ${opt:region, "us-east-1"}
 custom:
+  base: ${self:provider.stage}-${self:provider.region}
+
+  # outputs path
+  vpcStackName: sg-networking-infra:${self:provider.stage}:${self:provider.region}:sg-networking-infra-vpc
+
   # Serverless Framework Pro params/outputs
-  params:
-    vpcStackName: <networking_app_name>:${self:provider.stage}:${self:provider.region}:<service_name>-vpc
+  outputs:
+    VPCId: ${output:${self:custom.vpcStackName}.VPCId}
+    VPCSecurityGroup: ${output:${self:custom.vpcStackName}.VPCSecurityGroup}
+    SubnetA: ${output:${self:custom.vpcStackName}.SubnetA}
+    SubnetB: ${output:${self:custom.vpcStackName}.SubnetB}
+
 resources:
-  Resources:
-#     - ${file(./resources/vpc.yml)}
-    - ${file(./resources/iam.yml)}
-    - ${file(./resources/security-groups.yml)}
-    - ${file(./resources/eks.yml)}
+  - ${file(./resources/iam.yml)}
+  - ${file(./resources/security-groups.yml)}
+  - ${file(./resources/eks.yml)}
