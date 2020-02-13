@@ -4,22 +4,23 @@ provider:
   runtime: nodejs12.x
   stage: ${opt:stage, "dev"}
   region: ${opt:region, "us-west-2"}
-  profile: ${opt:profile, "serverlessguru-internal"}
-  
 
 custom:
   base: ${self:service}-${self:provider.stage}
 
 functions:
-  warmer:
+  test:
     handler: src/index.handler
     events:
       - http:
-          path: /whatever
+          path: /test
           method: GET
           cors: true
           integration: lambda
           request:
             template:
-              application/json: '{"key-1": "$context.value-1", "key-2": "$context.value-2"}'
+              application/json: |
+                {
+                  "content": "$input.body"
+                }
             passThrough: WHEN_NO_TEMPLATES
