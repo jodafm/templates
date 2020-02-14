@@ -1,12 +1,10 @@
 org: serverlessguru
 app: serverless-app
-
 service: serverless-app-api
-
 provider:
   name: aws
   runtime: nodejs12.x
-  stage: ${opt:stage, "sandbox"}
+  stage: ${opt:stage, "dev"}
   region: ${opt:region, "us-west-2"}
 
 custom:
