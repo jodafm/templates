@@ -1,13 +1,20 @@
 require('dotenv').config();
+const axios = require('axios').default;
 
 module.exports = {
-  helloWorld: function () {
-    console.log(process.env.FROM_PROFILE)
-    console.log(process.env.TO_PROFILE)
-    console.log(process.env.SLS_ORG)
-    console.log(process.env.TOKEN)
+  getParams: async function () {
+    console.log("Getting params:")
+    const result = await axios.get(
+      `https://api.serverless.com/core/tenants/${process.env.SLS_ORG}/deploymentProfiles/${process.env.FROM_PROFILE}`,
+      { headers: { Authorization: `bearer ${process.env.TOKEN}` }}
+    );
+    return result;
   },
-  helloWorld2: function () {
+  copyParams: async function () {
+    console.log("Started copyParams function:")
+    const test = await this.getParams();
+    console.log("DONE");
+    console.log(test.data);
   }
 };
 
