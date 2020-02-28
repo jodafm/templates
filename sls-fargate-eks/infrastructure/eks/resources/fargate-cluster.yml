@@ -4,7 +4,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: ${env:custom_namespace}
+  name: ${env:cluster_name}
   region: ${env:region} # us-east-1
 
 fargateProfiles:
