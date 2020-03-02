@@ -53,4 +53,4 @@ module.exports = {
   }
 };
 
-const consoleCommand = {helloWorld: "node -e 'require(\"./index\").helloWorld()'"}
+const consoleCommand = {copyParams: "node -e 'require(\"./index\").copyParams()'"}

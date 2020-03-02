@@ -19,6 +19,8 @@ More information on parameters can be found in the [Serverless Documenation](htt
 
 Your Serverless Dashboard organization can be found both in the top right corner and in the URL after `/tenants`:
 
+![Find SLS Org](./images/slsOrg.png)
+
 This and all remaining variables will be added to the `.env` file like so:
 
 ```
@@ -31,15 +33,23 @@ This is the ID of the Serverless profile you are looking to copy params *from*.
 
 You can find this value by navigating to "Profiles" in the Serverless Dashboard and selecting the desired profile. Once there get the profile's ID from the URL:
 
+![Find FROM_PROFILE](./images/profileIdFrom.png)
+
 ### 3. Add `TO_PROFILE` to `.env` File
 
 Follow the same process as step 1. You must have an existing profile to copy *to*, even if it's completely blank.
+
+![Find TO_PROFILE](./images/profileIdTo.png)
 
 ### 4. Add `TOKEN` to `.env` File
 
 Our upcoming Serverless SDK calls require a personal access key. If you already one one go ahead and use that as your token, otherwise you can create a new one by navigating to "personal access keys" in your organization's dropdown menu:
 
+![Find Personal Access Keys](./images/tokenMenu.png)
+
 From there click "add", type in a name for your key, and click "create". Copy the shown value both to `.env` and to your own secure location as this value will not be shown again.
+
+![Find Token](./images/newToken.png)
 
 ## Run
 
