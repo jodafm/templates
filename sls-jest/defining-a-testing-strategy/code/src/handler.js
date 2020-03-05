@@ -8,12 +8,12 @@ const httpResponse = {
 
     validationError: x => ({
         statusCode: 400,
-        body: JSON.stringify({message:x})
+        body: JSON.stringify({ message: x })
     }),
 
     serverError: x => ({
         statusCode: 500,
-        body: JSON.stringify({message: x})
+        body: JSON.stringify({ message: x })
     })
 }
 
@@ -32,18 +32,18 @@ module.exports.save = async (input) => {
     if (!data.price) {
         return httpResponse.validationError('Must have a price')
     }
-    
+
     // 2. get pic or error
-    const {pic, picError} = await db.getPic(data.id)
+    const { pic, picError } = await db.getPic(data.id)
     if (picError) {
         return httpResponse.serverError(picError)
     }
 
     // 3. get tweet or default
-    let {tweet, tweetError} = await db.getTweet(data.id)
- 
+    let { tweet, tweetError } = await db.getTweet(data.id)
+
     // 4. save highlighted or error
-    const {highlighted, highlightedError} = await db.saveHighlighted({
+    const { highlighted, highlightedError } = await db.saveHighlighted({
         ...data,
         pic: pic.url,
         tweet: tweetError ? 'Default tweet message' : tweet
@@ -53,7 +53,7 @@ module.exports.save = async (input) => {
     }
 
     // 5. return success
-    return httpResponse.success(highlighted) 
+    return httpResponse.success(highlighted)
 }
 
 
