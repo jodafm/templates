@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test-unit": "jest --config=jest-unit.config.json",
+    "test-unit": "jest --watch --config=jest-unit.config.json",
     "test-int": "SERVICE=sls-testing-example STAGE=dev jest --config=jest-int.config.json",
     "test-e2e": "SERVICE=sls-testing-example STAGE=dev ENDPOINT=$(sls --stage=dev info | grep /save) jest --config=jest-e2e.config.json",
-
     "ci-test-unit": "npm run test-unit",
     "ci-test-int": "SERVICE=sls-testing-example STAGE=test jest --config=jest-int.config.json",
     "ci-test-e2e": "SERVICE=sls-testing-example STAGE=test ENDPOINT=$(sls --stage=dev info | grep /save) jest --config=jest-e2e.config.json"
