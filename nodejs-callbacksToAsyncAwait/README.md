@@ -1,3 +1,23 @@
+# Videos walking through this project
+
+### Intro
+- [Intro to Project](https://www.loom.com/share/702bc6a2640246a986ac1112ee0cc6da)
+- [Overview of callbacks vs async await](https://www.loom.com/share/680c982b05c649b0aebee6105902f28a)
+
+### Comparison of Callbacks, Promises, and Async Await
+- [Intro](https://www.loom.com/share/da15ed2ca5df460c855398d2a1f7e9e6)
+- [Walkthrough](https://www.loom.com/share/57ff7607eb6d4ac2a3328a26b00e718b)
+
+### Refactoring Callbacks to Async Await
+- [Intro](https://www.loom.com/share/ade4134d6c454666b898496d85f7cfce)
+- [Refactoring Inside Out](https://www.loom.com/share/f880ae556aa84e359963b79d2c4e67a0)
+- [Refactoring Outside In](https://www.loom.com/share/6540d38b156849368381925167bf8446)
+
+### Testing
+- [Comparison of testing callbacks vs async await](https://www.loom.com/share/23f8cf9b3316418aa36fa41a1b7cd3b4)
+- [How to test callbacks](https://www.loom.com/share/4599f06298c441f2a9fbd74729d8e8a7)
+
+
 # Callbacks to Async Await
 
 There are 3 ways to handle code that takes time, such as aws-sdk calls:
