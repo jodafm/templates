@@ -2,9 +2,6 @@
  * Definition:
  * -----------------------
  * Makes Appsync call with a signed http request based on iam role credentials
- * Thanks Adrian Hall for your helpful article: 
- * https://adrianhall.github.io/cloud/2018/10/26/backend-graphql-trigger-appsync/
- * 
  * 
  * Paramater Explanation:
  * -----------------------
