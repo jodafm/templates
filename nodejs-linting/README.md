@@ -26,7 +26,7 @@ The code reviewer will manually check what is not automatically checked by ESLin
 - are we using `package:` to define what we are including in deployment
 - Is the serverless.yml file valid (has it been tested by deploying to INT from developers machine)
 - Do resources include variable stage names
-- Do we have any hard coded resources that need to be dynamic?
+- Do we have any hard coded resources that can be made dynamic with SLS pro outputs and params?
 
 ### General Code Review checklist
 
