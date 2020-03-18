@@ -27,9 +27,9 @@ One important way to achieve readable, debuggable, testable code is to keep our 
 
 ![Demonstration of Function Size](./assets/function-size.png)
 
-In the diagram above, we are determining that the maximum function line length is 14, and the maximum indentation depth is 4. These 2 rules are visualized as a green box above. The red line of code to the right of the green box is breaking the maximum depth rule of 4, since it is indented 5 times. The red lines of code below the green box are breaking our maximum function line rule of 14.
+We will refer to this idea as 'Maximum Block Size'. In the diagram above, we are determining that the maximum function line length is 14, and the maximum indentation depth is 4. These 2 rules which make up our Miximum Block Size are visualized as a green box above. The red line of code to the right of the green box is breaking the maximum depth rule of 4, since it is indented 5 times. The red lines of code below the green box are breaking our maximum function line rule of 14.
 
-The goal here is not to reach an ideal function length or width, its to make our code more readable, debuggable, and testable. The ESLint rule is simply a pragmatic concrete way to try and make our functions an acceptable size.
+The goal here is not to reach an ideal function length or width, its to make our code more readable, debuggable, and testable. Enforcing ESLint rules is simply one concrete way to help us write readable code.
 
 ### Rules to define in ESLint
 - For new code, is indentation at an acceptable maximum depth (as defined in ESLint)
@@ -38,9 +38,9 @@ The goal here is not to reach an ideal function length or width, its to make our
     - const and let over var (as defined in ESLint)
 - Are there an acceptable amount of nested callbacks? (as defined in maximum callbacks in ESLint)
 
+All of the rules above will be automatically checked by ESLint, and will not require a manual check in a code review.
 
 # Code checks manually performed by a code reviewer
-
 ### Serverless.yml checklist
 - are we using `package:` to define what we are including in deployment
 - Is the serverless.yml file valid (has it been tested by deploying to INT from developers machine)
