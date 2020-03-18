@@ -4,7 +4,7 @@
 - [1. Overview of Strategy to maintain speed and quality](https://www.loom.com/share/b8d4397895f8481dac738ce58afce4bf)
 - [2. How ESLint works](https://www.loom.com/share/088243e225644553b0e59261964c97b4)
 - [3. Strategies for implementing ESLint into an existing codebase](https://www.loom.com/share/7f8c8c5f187645238d14d4c509d2afb9)
-- [4. How Automated Linting influences the Code Review Process](https://www.loom.com/share/393c4d1c1ba0419ebecd7af55b9c131a)
+- [4. How ESLint influences the Code Review Process](https://www.loom.com/share/393c4d1c1ba0419ebecd7af55b9c131a)
 
 # Overall Strategy for maintaining both Speed and Quality
 ![Speed and Quality Diagram](./assets/speedAndQualityStrategy.png)
@@ -58,5 +58,5 @@ All of the rules above will be automatically checked by ESLint, and will not req
 
 
 # Resources
-Available EsLint Rules:
+Available ESLint Rules:
 https://eslint.org/docs/rules/
