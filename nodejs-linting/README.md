@@ -50,7 +50,7 @@ The goal here is not to reach an ideal function length or width, its to make our
 - are we using `package:` to define what we are including in deployment
 - Is the serverless.yml file valid (has it been tested by deploying to INT from developers machine)
 - Do resources include variable stage names
-- Do we have any hard coded resources that need to be dynamic?
+- Do we have any hard coded resources that can be made dynamic with SLS pro outputs and params?
 
 ### General Code Review checklist
 - If new code includes callbacks, do we have a good reason for it?
