@@ -5,7 +5,7 @@
 - How ESLint works (Video coming soon...)
 - Strategies for implementing ESLint into an existing codebase (Video coming soon...)
 
-# Overall Strategy for Speed and Quality
+# Overall Strategy for maintaining both Speed and Quality
 ![Speed and Quality Diagram](./assets/speedAndQualityStrategy.png)
 
 Recommendations:
