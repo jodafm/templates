@@ -1,7 +1,7 @@
 # ESlint Pattern
 
 ### Video Walkthroughs
-- Overview of Strategy to maintain speed and quality, and how linting fits in (Video coming soon...)
+- [Overview of Strategy to maintain speed and quality, and how linting fits in](https://www.loom.com/share/b8d4397895f8481dac738ce58afce4bf)
 - How ESLint works (Video coming soon...)
 - Strategies for implementing ESLint into an existing codebase (Video coming soon...)
 
