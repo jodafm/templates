@@ -2,7 +2,7 @@
 
 ### Video Walkthroughs
 - [Overview of Strategy to maintain speed and quality, and how linting fits in](https://www.loom.com/share/b8d4397895f8481dac738ce58afce4bf)
-- How ESLint works (Video coming soon...)
+- [How ESLint works](https://www.loom.com/share/088243e225644553b0e59261964c97b4)
 - Strategies for implementing ESLint into an existing codebase (Video coming soon...)
 
 # Overall Strategy for maintaining both Speed and Quality
