@@ -1,13 +1,9 @@
 # ESlint Pattern
-Available EsLint Rules:
-https://eslint.org/docs/rules/
 
-
-### Walkthrough Video:
-https://www.loom.com/share/d9b69f2eceaa4774a5024cfc4f08d539
-### Strategy for implementing the most important lint rules for new features only
-https://www.loom.com/share/19c0ed77be114f50a61ed7616b58b103
-
+### Video Walkthroughs
+- Overview of Strategy to maintain speed and quality, and how linting fits in (Video coming soon...)
+- How ESLint works (Video coming soon...)
+- Strategies for implementing ESLint into an existing codebase (Video coming soon...)
 
 # Overall Strategy for Speed and Quality
 ![Speed and Quality Diagram](./assets/speedAndQualityStrategy.png)
@@ -58,3 +54,8 @@ All of the rules above will be automatically checked by ESLint, and will not req
 ### Documentation checklist
 - Is there any complex code that requires documentation
 - Is documentation on functions, methods, classes, contexts, and behaviours adequate?
+
+
+# Resources
+Available EsLint Rules:
+https://eslint.org/docs/rules/
