@@ -19,6 +19,9 @@ module.exports = {
         'no-var': 'warn',
         'no-console': 'warn',
         'max-nested-callbacks': ["warn", { "max": 2 }],
+        // 'max-depth': ["warn", 4],
+        // "max-lines-per-function": ["warn", 100]
+
         // curly: 'warn',
         // 'no-caller': 'warn',
         // 'no-eval': 'warn',
