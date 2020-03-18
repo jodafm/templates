@@ -10,7 +10,7 @@ https://www.loom.com/share/19c0ed77be114f50a61ed7616b58b103
 
 
 # Overall Strategy for Speed and Quality
-![Speed and Quality Diagram](../assets/speedAndQualityStrategy.png)
+![Speed and Quality Diagram](./assets/speedAndQualityStrategy.png)
 
 # An example Code Review Checklist
 Recommendations:
@@ -30,7 +30,7 @@ ESLint rules should take into account the context, development team, and codebas
 
 One important way to achieve readable, debuggable, testable code is to keep our functions as small and flat as possible. One way to acheive this is to set limits on how many lines a function can have and how many times a function is allowed to indent. With these 2 rules, we are drawing a box around our functions and defining the maximum size:
 
-![Demonstration of Function Size](../assets/function-size.png)
+![Demonstration of Function Size](./assets/function-size.png)
 
 In the digram above, we are determining that the maximum function line length is 14, and the maximum indentation depth is 4. This conceptually forms a box, which you can see above as a green box. The red line of code is breaking our maximum depth rule, since it is indented 5 times. The red lines of code below are breaking our maximum function line rule.
 
