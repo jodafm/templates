@@ -23,6 +23,7 @@ The QA team will manually check what is not automatically checked by our tests. 
 # Code checks that should be automated with ESLint
 ESLint rules should take into account the context, development team, and codebase they are being applied to. The purpose of these rules is to acheive readable, debuggable, testable code. Acheiving these goals may mean different things per context.
 
+### Maximum Block Size
 One important way to achieve readable, debuggable, testable code is to keep our functions small and flat. One way to acheive this is to set limits on how many lines a function can have (height) and how many times a function is allowed to indent (width). You can imagine, with these 2 rules, we are drawing a box around our functions and defining the maximum size:
 
 ![Demonstration of Function Size](./assets/function-size.png)
