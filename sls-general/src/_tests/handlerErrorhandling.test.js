@@ -63,7 +63,7 @@ describe('Handler Errorhandling', () => {
         const result = await handler(input)
         expect(result.statusCode).toBe(500)
         expect(JSON.parse(result.body)).toEqual({
-            message: 'There is a problem no our end, we are on it!'
+            message: 'There is a problem on our end, we are on it!'
         })
     })
 

@@ -113,6 +113,6 @@ exports.handler = async (event) => {
       return http.serverError(e.message)
     }
 
-    return http.serverError('There is a problem no our end, we are on it!')
+    return http.serverError('There is a problem on our end, we are on it!')
   }
 }
