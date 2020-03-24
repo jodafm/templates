@@ -27,8 +27,6 @@ const validate = (event) => {
 }
 
 
-
-
 /**
  * The following 2 functions simply call IO helper functions, format that data
  * as needed and returns it to the main function. Seperating data fetching from 
