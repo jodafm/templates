@@ -222,3 +222,16 @@ We do suggest 2 rules be discussed by the team, defined in eslint, and enforced 
 - Maximum Function Length (example: maximum 100 lines)
 - Maximum Function Indentation Depth (example: maximum 5 levels of indentation)
 
+# 4. Error Handling
+
+How to handle errors correctly is very contextual. It depends on who the audience of the error is:
+- **Audience is developers**: Give as much information as possible. It is very hard to solve problems unless developers have visibility and context around errors in production. This can be accomplished by implementing a logging strategy (aws-xray, aws-cloudwatch, serverless dashboard)
+- **Audience is users**: 
+   - Do they need to know about this error? Can default data or placeholder assets be shown instead without
+   drawing attention to the error?
+   - If they do need to know, how should we communicate this error?
+   - Is it possible to share too much information in an insecure manner?
+   - Is a simple message such as 'There was a problem on our end, we have been notified' good enough?
+
+When determining errors, the team needs to understand the audience and the right way to communicate messages to its users.
+This is as much a business question as it is a technical question. In this project, we are giving generic error messages simply for demo purposes. How you error handle depends on your context.
