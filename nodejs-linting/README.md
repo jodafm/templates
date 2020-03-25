@@ -57,6 +57,16 @@ All of the rules above will be automatically checked by ESLint, and will not req
 - Is documentation on functions, methods, classes, contexts, and behaviours adequate?
 
 
+### Testing Code Review checklist
+- Test should be able to run in any order. To insure this, we must validate that tests do not rely on any state outside of the test
+- Tests should only test 1 thing at a time
+    - 'it works'
+    - 'Test Case 1'
+    - 'works based on data we give it'
+- Tests should avoid more than 10 expect statements. This is a sign that it may be testing more than 1 thing. When testing an object with 5 properties, rather than write 5 expects with .toBe, write 1 expect with .toEqual. This allows you to confirm a full object is what you expect it to be with 1 expectatation.
+- Unit Tests should be small and focused, and should not need lots of mocking. This depends a lot on the code you are testing. When tests are big and hard to mock, its a sign that the code is big and many types of code (business logic, IO) are mixed together. Big tests may be the only option until code is refactored.
+
+
 # Resources
 Available ESLint Rules:
 https://eslint.org/docs/rules/
