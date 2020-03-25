@@ -1,5 +1,5 @@
 const { handler } = require('../handler')
-
+const io = require('../io')
 jest.mock('../io', () => ({
     api: {
         getAvailableSeating: jest.fn()
@@ -10,8 +10,6 @@ jest.mock('../io', () => ({
         findDiscountsByDate: jest.fn()
     }
 }))
-
-const io = require('../io')
 
 describe('Handler Logic', () => {
     test('will return 0 seating if no seating is available', async () => {
@@ -138,7 +136,7 @@ describe('Handler Logic', () => {
         ])
     })
 
-    test('will only apply all discounts if multiple are found', async () => {
+    test('will apply all discounts if multiple discounts are found', async () => {
         io.api.getAvailableSeating.mockImplementation(() => [
             {
                 id: '1',
@@ -264,44 +262,15 @@ describe('Handler Logic', () => {
     })
 
     test('will not be urgent if there are more than 5 available spots', async () => {
-        io.api.getAvailableSeating.mockImplementation(() => [
-            {
+        const arrayOfSix = Array.from({ length: 6 })
+        io.api.getAvailableSeating.mockImplementation(() => arrayOfSix.map(() => {
+            return {
                 id: '1',
                 windowSeat: false,
                 cancelled: true,
                 firstClass: true
-            },
-            {
-                id: '2',
-                windowSeat: false,
-                cancelled: true,
-                firstClass: true
-            },
-            {
-                id: '3',
-                windowSeat: false,
-                cancelled: true,
-                firstClass: true
-            },
-            {
-                id: '4',
-                windowSeat: false,
-                cancelled: true,
-                firstClass: true
-            },
-            {
-                id: '5',
-                windowSeat: false,
-                cancelled: true,
-                firstClass: true
-            },
-            {
-                id: '6',
-                windowSeat: false,
-                cancelled: true,
-                firstClass: true
             }
-        ])
+        }))
 
         io.db.findDiscountsByDate.mockImplementation(() => [])
 

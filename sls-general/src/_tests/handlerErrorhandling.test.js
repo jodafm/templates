@@ -1,5 +1,6 @@
 const { handler } = require('../handler')
 const { ExternalApiError, DatabaseError } = require('../helpers/errors')
+const io = require('../io')
 
 jest.mock('../io', () => ({
     api: {
@@ -11,8 +12,6 @@ jest.mock('../io', () => ({
         findDiscountsByDate: jest.fn()
     }
 }))
-
-const io = require('../io')
 
 describe('Handler Errorhandling', () => {
     test('will return 500 if getAvailableSeating api call throws an error', async () => {
