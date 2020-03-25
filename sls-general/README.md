@@ -222,6 +222,8 @@ We do suggest 2 rules be discussed by the team, defined in eslint, and enforced 
 - Maximum Function Length (example: maximum 100 lines)
 - Maximum Function Indentation Depth (example: maximum 5 levels of indentation)
 
+One practical way to achieve low indendation is to prefer using `async await` syntax over callbacks. Another is to split functionality into small focused functions.
+
 # 4. Error Handling
 
 How to handle errors correctly is very contextual. It depends on who the audience of the error is:
