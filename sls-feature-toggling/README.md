@@ -1,3 +1,3 @@
 # Simple Feature Toggling
 
-![steps](./assets/steps.png)
+![steps](./assets/ftSteps.png)
