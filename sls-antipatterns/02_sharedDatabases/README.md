@@ -18,5 +18,5 @@ In order to avoid this, we can sync every change with the other service, but thi
 
 Or have a dedicated database for each service:
 
-![04](./assets/03.png)
+![04](./assets/04.png)
 
