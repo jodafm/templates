@@ -1,0 +1,69 @@
+service: sls-cognito
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+
+custom:
+    stage: ${opt:stage, self:provider.stage}
+    region: ${opt:region, self:provider.region}
+    userPoolName: my-example-userpool
+
+
+functions:
+    hello:
+        timeout: 30
+        handler: handler.hello
+        events:
+            - http:
+                  path: /
+                  method: get
+                  cors: true
+                  authorizer: arn:aws:cognito-idp:us-east-1:251256923172:userpool/us-east-1_6GJ4axLvL
+                    # type: COGNITO_USER_POOLS
+                    # authorizerId: arn:aws:cognito-idp:us-east-1:251256923172:userpool/us-east-1_6GJ4axLvL
+                    #  #  Ref: ApiGatewayAuthorizer
+
+resources:
+  Resources:
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: ${self:custom.stage}-${self:custom.userPoolName}-user-pool
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: ${self:custom.stage}-${self:custom.userPoolName}-user-pool-client
+        UserPoolId:
+          Ref: CognitoUserPool
+        ExplicitAuthFlows:
+          - ADMIN_NO_SRP_AUTH
+        GenerateSecret: false
+    ApiGatewayAuthorizer:
+      DependsOn:
+      # this is pre-defined by serverless
+      - ApiGatewayRestApi
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        Name: cognito_auth
+        # apparently ApiGatewayRestApi is a global string
+        RestApiId: { "Ref" : "ApiGatewayRestApi" }
+        IdentitySource: method.request.header.Authorization
+        Type: COGNITO_USER_POOLS
+        ProviderARNs:
+        - Fn::GetAtt: [CognitoUserPool, Arn]
+
+Outputs:
+  UserPoolId:
+    Value:
+      Ref: CognitoUserPool
+
+  UserPoolClientId:
+    Value:
+      Ref: CognitoUserPoolClient

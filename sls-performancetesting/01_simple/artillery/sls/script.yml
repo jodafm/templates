@@ -1,0 +1,36 @@
+# Thank you for trying serverless-artillery!
+# This default script is intended to get you started quickly.
+# There is a lot more that Artillery can do.
+# You can find great documentation of the possibilities at:
+# https://artillery.io/docs/
+
+
+# https://sjy5wwaum5.execute-api.us-east-1.amazonaws.com/
+
+
+
+config:
+  # this hostname will be used as a prefix for each URI in the flow unless a complete URI is specified
+  target: "https://6zaf8isae5.execute-api.us-east-1.amazonaws.com"
+  phases:
+    -
+      duration: 60
+      arrivalRate: 100
+      rampTo: 20
+
+  ensure:
+    p95: 100
+    maxErrorRate: 1 # error rate must be less than 1%
+
+  plugins:
+    cloudwatch:
+      namespace: "serverless-artillery-myperftestservice-loadtest"
+scenarios:
+  -
+    flow:
+      -
+        get:
+          url: "/"
+          match:
+            json: "$.data"
+            value: 300

@@ -1,0 +1,15 @@
+service: artilery-simple-service
+org: garysjennings
+app: ac-test
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          method: GET
+          path: /

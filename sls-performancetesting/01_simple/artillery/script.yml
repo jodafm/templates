@@ -1,0 +1,21 @@
+# Thank you for trying serverless-artillery!
+# This default script is intended to get you started quickly.
+# There is a lot more that Artillery can do.
+# You can find great documentation of the possibilities at:
+# https://artillery.io/docs/
+
+
+# https://sjy5wwaum5.execute-api.us-east-1.amazonaws.com/
+config:
+  # this hostname will be used as a prefix for each URI in the flow unless a complete URI is specified
+  target: "https://sjy5wwaum5.execute-api.us-east-1.amazonaws.com"
+  phases:
+    -
+      duration: 5
+      arrivalRate: 20
+scenarios:
+  -
+    flow:
+      -
+        get:
+          url: "/"

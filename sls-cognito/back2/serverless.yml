@@ -1,0 +1,27 @@
+service: sls-cognito-2
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+
+custom:
+    stage: ${opt:stage, self:provider.stage}
+    region: ${opt:region, self:provider.region}
+    userPoolName: my-example-userpool
+
+
+functions:
+    hello:
+        timeout: 30
+        handler: handler.hello
+        events:
+            - http:
+                  path: /
+                  method: get
+                  cors: true
+                  authorizer: arn:aws:cognito-idp:us-east-1:251256923172:userpool/us-east-1_6GJ4axLvL
+                    # type: COGNITO_USER_POOLS
+                    # authorizerId: arn:aws:cognito-idp:us-east-1:251256923172:userpool/us-east-1_6GJ4axLvL
+                    #  #  Ref: ApiGatewayAuthorizer
+

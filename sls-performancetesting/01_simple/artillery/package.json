@@ -1,0 +1,15 @@
+{
+  "name": "artillery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "slsart deploy --stage test1",
+    "run": "slsart invoke --stage test1",
+    "remove": "slsart remove --stage test1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
