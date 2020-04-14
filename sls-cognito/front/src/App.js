@@ -5,8 +5,8 @@ import { withAuthenticator } from 'aws-amplify-react';
 import Amplify from 'aws-amplify';
 
 
-const url1 = 'https://mel5wpitcl.execute-api.us-east-1.amazonaws.com/dev'
-const url2 = 'https://cqtvoll6r7.execute-api.us-east-1.amazonaws.com/dev/'
+const url1 = 'https://a787q09jti.execute-api.us-east-1.amazonaws.com/dev/back1'
+const url2 = 'https://a787q09jti.execute-api.us-east-1.amazonaws.com/dev/back2'
 
 
 const getDataFromUrl = async (url) => { 
@@ -19,15 +19,15 @@ const getDataFromUrl = async (url) => {
     mode: 'cors'
   });
 
-  const res = await fetch(myRequest)
-  return await res.json()
+  return fetch(myRequest).then(x => x.json())
+
 }
 
 Amplify.configure({
   Auth: {
     region: 'us-east-1',
-    userPoolId: 'us-east-1_6GJ4axLvL',
-    userPoolWebClientId: '1a84ev0vtj2c9v84ttunr7qm4b'
+    userPoolId: 'us-east-1_XcLqaH7tz',
+    userPoolWebClientId: 'gm3vgt89697u0ito1rgbf741h'
   }
 })
 

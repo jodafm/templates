@@ -1,63 +1,78 @@
-
-service: sls-cognito-api-stack
+org: garysjennings
+app: ac-cog
+service: sls-cognito-api
 
 provider:
   name: aws
   runtime: nodejs12.x
 
-
+custom:
+  base: ${self:service}-${self:provider.stage}
+  stage: ${opt:stage, self:provider.stage}
+  region: ${opt:region, self:provider.region}
+  userPoolName: my-example-userpool
 
 functions:
-  hello:
+  test:
     handler: handler.hello
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
-#      - websocket: $connect
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
-#      - alb:
-#          listenerArn: arn:aws:elasticloadbalancing:us-east-1:XXXXXX:listener/app/my-load-balancer/50dc6c495c0c9188/
-#          priority: 1
-#          conditions:
-#            host: example.com
-#            path: /hello
+    events:
+      - http:
+            path: /test
+            method: get
 
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
+resources:
+  Resources:
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: ${self:custom.stage}-${self:custom.userPoolName}-user-pool
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
 
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: ${self:custom.stage}-${self:custom.userPoolName}-user-pool-client
+        UserPoolId:
+          Ref: CognitoUserPool
+        ExplicitAuthFlows:
+          - ADMIN_NO_SRP_AUTH
+        GenerateSecret: false
+
+    ApiGatewayAuthorizer:
+      DependsOn:
+      - ApiGatewayRestApi
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        Name: cognito_auth
+        RestApiId: { "Ref" : "ApiGatewayRestApi" }
+        IdentitySource: method.request.header.Authorization
+        Type: COGNITO_USER_POOLS
+        ProviderARNs:
+        - Fn::GetAtt: [CognitoUserPool, Arn]
+
+
+outputs:
+  ApiEndpoint:
+    Fn::Join:
+      - ''
+      - - https://
+        - Ref: ApiGatewayRestApi
+        - .execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}
+  ApiId:
+    Ref: ApiGatewayRestApi
+    
+  ApiResourceId:
+    Fn::GetAtt:
+    - ApiGatewayRestApi
+    - RootResourceId 
+
+  AuthorizorId: 
+    Ref: ApiGatewayAuthorizer
+  
+  UserPoolArn:
+    Fn::GetAtt:
+    - CognitoUserPool
+    - Arn 

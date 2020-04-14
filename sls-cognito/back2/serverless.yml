@@ -1,8 +1,13 @@
+org: garysjennings
+app: ac-cog
 service: sls-cognito-2
 
 provider:
   name: aws
   runtime: nodejs12.x
+  apiGateway:
+    restApiId: ${output:sls-cognito-api.ApiId}
+    restApiRootResourceId: ${output:sls-cognito-api.ApiResourceId}
 
 
 custom:
@@ -17,11 +22,43 @@ functions:
         handler: handler.hello
         events:
             - http:
-                  path: /
+                  path: /back2
                   method: get
                   cors: true
-                  authorizer: arn:aws:cognito-idp:us-east-1:251256923172:userpool/us-east-1_6GJ4axLvL
-                    # type: COGNITO_USER_POOLS
-                    # authorizerId: arn:aws:cognito-idp:us-east-1:251256923172:userpool/us-east-1_6GJ4axLvL
-                    #  #  Ref: ApiGatewayAuthorizer
+                  authorizer:
+                    type: COGNITO_USER_POOLS
+                    authorizerId: 
+                      Ref: ApiGatewayAuthorizer
+                  # authorizer: #${output:sls-cognito-api.UserPoolArn}
+                  #   type: COGNITO_USER_POOLS
+                  #   authorizerId: lg3zve
 
+
+
+resources:
+  Resources:
+    ApiGatewayAuthorizer:
+      Type: AWS::ApiGateway::Authorizer
+      Properties:
+        Name: cognito_auth-${self:service}
+        RestApiId: ${output:sls-cognito-api.ApiId}
+        IdentitySource: method.request.header.Authorization
+        Type: COGNITO_USER_POOLS
+        ProviderARNs: 
+        - ${output:sls-cognito-api.UserPoolArn}
+
+    # ApiGatewayAuthorizer:
+    #   Type: AWS::ApiGateway::Authorizer
+    #   Properties:
+    #     AuthorizerResultTtlInSeconds: 300
+    #     IdentitySource: method.request.header.Authorization
+    #     Name: Cognito
+    #     RestApiId:
+    #       Ref: YourApiGatewayName
+    #     Type: COGNITO_USER_POOLS
+    #     ProviderARNs:
+    #       - arn:aws:cognito-idp:${self:provider.region}:xxxxxx:userpool/abcdef
+
+
+
+      
