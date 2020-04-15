@@ -1,5 +1,5 @@
-org: garysjennings
-app: ac-cog
+org: YOUR_ORG
+app: YOUR_APP
 service: sls-cognito-api
 
 provider:
@@ -22,6 +22,9 @@ functions:
 
 resources:
   Resources:
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # Cognito User Pool Resources
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     CognitoUserPool:
       Type: AWS::Cognito::UserPool
       Properties:
@@ -41,6 +44,12 @@ resources:
           - ADMIN_NO_SRP_AUTH
         GenerateSecret: false
 
+
+
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    # ApiGateway Authorizer
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     ApiGatewayAuthorizer:
       DependsOn:
       - ApiGatewayRestApi
@@ -61,6 +70,7 @@ outputs:
       - - https://
         - Ref: ApiGatewayRestApi
         - .execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}
+  
   ApiId:
     Ref: ApiGatewayRestApi
     
@@ -72,7 +82,4 @@ outputs:
   AuthorizorId: 
     Ref: ApiGatewayAuthorizer
   
-  UserPoolArn:
-    Fn::GetAtt:
-    - CognitoUserPool
-    - Arn 
+

@@ -1,4 +1,6 @@
 service: sls-mysql-example
+org: garysjennings
+app: sls-cog
 
 provider:
   name: aws
@@ -153,3 +155,11 @@ resources:
           Ref: AuroraRDSInstanceParameter
         DBClusterIdentifier:
           Ref: AuroraRDSCluster
+
+outputs:
+  endpoint:
+    Fn::GetAtt: 
+    - AuroraRDSInstance
+    - Endpoint.Address
+
+
