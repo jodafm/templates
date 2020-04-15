@@ -18,4 +18,4 @@ The task also requires that we return `NA` for `daysLeft` if there is no `startD
 
 
 ## Videos
-- [Adding a feature with tests demonstration [11:21]](https://sls-guru-ac-videos.s3.amazonaws.com/jest-02-writingTestableCode/testing-new-features-in-legacy-codebase.mp4)
+...coming soon

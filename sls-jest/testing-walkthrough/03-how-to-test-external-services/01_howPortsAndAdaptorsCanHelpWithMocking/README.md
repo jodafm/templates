@@ -1,7 +1,5 @@
 # Ports and Adaptors
 
-[Video walkthrough of this document[7:46]](https://sls-guru-ac-videos.s3.amazonaws.com/jest-03-integration/paa-overview.mp4)
-
 Ports and Adaptors is an architecture pattern which helps you decouple your codebase. A decoupled codebase makes testing much more straighforward. So what is the idea behind ports and adatopr?
 
 ### What is Ports and Adaptors
