@@ -106,7 +106,7 @@ module.exports = {
         'no-loop-func': 'warn',
         'max-params': ["warn", 4],
         'no-unmodified-loop-condition': 'error',
-        "no-global-assign": "error",
+        "no-global-assign": "warn",
         'prefer-const': 'warn',
         'no-unused-expressions': 'warn',
         'no-extra-semi': 'warn',
