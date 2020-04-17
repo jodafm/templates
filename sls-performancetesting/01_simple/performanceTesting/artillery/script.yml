@@ -6,16 +6,31 @@
 
 
 # https://sjy5wwaum5.execute-api.us-east-1.amazonaws.com/
+
+
+
 config:
   # this hostname will be used as a prefix for each URI in the flow unless a complete URI is specified
-  target: "https://sjy5wwaum5.execute-api.us-east-1.amazonaws.com"
+  target: "https://1n5cel1qt3.execute-api.us-east-1.amazonaws.com"
   phases:
     -
-      duration: 5
-      arrivalRate: 20
+      duration: 10
+      arrivalRate: 10
+      rampTo: 100
+
+  ensure:
+    p95: 100
+    maxErrorRate: 1 # error rate must be less than 1%
+
+  plugins:
+    cloudwatch:
+      namespace: "serverless-artillery-myperftestservice-loadtest"
 scenarios:
   -
     flow:
       -
         get:
-          url: "/"
+          url: "/?id=product_1234"
+          match:
+            json: "$.data.id"
+            value: 'product_1234'
