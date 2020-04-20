@@ -45,6 +45,12 @@ All of the rules above will be automatically checked by ESLint, and will not req
 - Do resources include variable stage names
 - Do we have any hard coded resources that can be made dynamic with SLS pro outputs and params?
 
+### The primary question of a code review
+Does the code involved in this added feature / change / refactor make sense?
+- if not, either
+    - The code is good, but needs to documented
+    - There are improvements that can be made
+
 ### General Code Review checklist
 - If new code includes callbacks, do we have a good reason for it?
 - Are names semantic and meaningful?
@@ -68,8 +74,19 @@ All of the rules above will be automatically checked by ESLint, and will not req
 
 
 # Resources
-Available ESLint Rules:
-https://eslint.org/docs/rules/
+- [Available ESLint Rules](https://eslint.org/docs/rules/)
+- [How CI fits into Code Reviews in Bitbucket](https://bitbucket.org/blog/level-up-your-code-review-with-continuous-integration)
+
+# How to write code reviews
+
+- [Code Review for Humans](https://phauer.com/2018/code-review-guidelines/)
+- [Code Review Etiquette](https://css-tricks.com/code-review-etiquette/)
+- [Pragmatic Code Reviews](https://www.freecodecamp.org/news/a-zen-manifesto-for-effective-code-reviews-e30b5c95204a/)
+
+
+# Advice
+- Give context by writing in the PR description an explanation of the current PR. Write the PR as if someone brand new to the team is assigned to review it on their first day. This imagined audience will help make the written description very clear.
+- The smaller the PR, the better and more helful the feedback. (Example)[https://twitter.com/iamdevloper/status/397664295875805184?s=20]
 
 
 
@@ -118,3 +135,4 @@ module.exports = {
 }
 
 ```
+
