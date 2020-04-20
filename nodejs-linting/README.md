@@ -44,6 +44,7 @@ All of the rules above will be automatically checked by ESLint, and will not req
 - Is the serverless.yml file valid (has it been tested by deploying to INT from developers machine)
 - Do resources include variable stage names
 - Do we have any hard coded resources that can be made dynamic with SLS pro outputs and params?
+- If changes where made to the `serverless.yml` file, has the author of this PR validated it by deploying to their `dev` stage?
 
 ### The primary question of a code review
 Does the code involved in this added feature / change / refactor make sense?
