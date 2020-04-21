@@ -1,4 +1,6 @@
 service: sls-dynamic-config
+app: YOUR_APP
+org: YOUR_ORG
 
 provider:
   name: aws
