@@ -91,7 +91,7 @@ Does the code involved in this added feature / change / refactor make sense?
 
 
 
-# Recommended ESLint Default
+# Recommended ESLint Default js file
 ```js
 module.exports = {
     env: {
@@ -141,7 +141,7 @@ module.exports = {
 
 ```
 
-
+# Recommended ESLint Default json file
 JSON Version:
 ```
 {
