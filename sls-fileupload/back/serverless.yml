@@ -1,0 +1,41 @@
+service: back
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    BUCKET: uploadexample-${opt:stage, self:provider.stage}
+  iamManagedPolicies: 
+    - arn:aws:iam::aws:policy/AmazonS3FullAccess
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action: 
+  #       - "s3:*"
+  #     Resource: arn:aws:s3:::uploadexample-${opt:stage, self:provider.stage}
+  #       # Fn::GetAtt: 
+  #       #   - MyS3Bucket
+  #       #   - Arn
+
+functions:
+  getSignedUrl:
+    handler: handler.handler
+    events:
+      - http:
+         path: signedurl
+         method: get
+
+resources:
+  Resources:
+    MyS3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: uploadexample-${opt:stage, self:provider.stage}
+        AccessControl: Private
+        CorsConfiguration:
+            CorsRules:
+              - AllowedHeaders: 
+                  - '*'
+                AllowedMethods: 
+                  - PUT
+                AllowedOrigins: 
+                  - '*'
