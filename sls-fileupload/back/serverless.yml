@@ -7,14 +7,6 @@ provider:
     BUCKET: uploadexample-${opt:stage, self:provider.stage}
   iamManagedPolicies: 
     - arn:aws:iam::aws:policy/AmazonS3FullAccess
-  # iamRoleStatements:
-  #   - Effect: Allow
-  #     Action: 
-  #       - "s3:*"
-  #     Resource: arn:aws:s3:::uploadexample-${opt:stage, self:provider.stage}
-  #       # Fn::GetAtt: 
-  #       #   - MyS3Bucket
-  #       #   - Arn
 
 functions:
   getSignedUrl:
@@ -22,7 +14,7 @@ functions:
     events:
       - http:
          path: signedurl
-         method: get
+         method: post
 
 resources:
   Resources:
