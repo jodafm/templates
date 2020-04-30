@@ -209,7 +209,7 @@ JSON Version:
 ```
 
 
-Example Bitbucket pipeline config:
+# Example Bitbucket pipeline config:
 ```yml
 image: node:10.15.3
 
