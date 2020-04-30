@@ -208,3 +208,32 @@ JSON Version:
 }
 ```
 
+
+Example Bitbucket pipeline config:
+```yml
+image: node:10.15.3
+
+pipelines:
+  branches:
+    master:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run lint
+            - npm run test-unit
+            - npm run test-int
+            - npm run test-e2e
+
+  pull-requests:
+    '**':
+      - step:
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run lint
+            - npm run test-unit
+```
+
