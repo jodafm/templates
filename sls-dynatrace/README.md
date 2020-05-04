@@ -23,7 +23,7 @@ These instructions are no longer correct. Instead, we use the oneagent library a
 
 ## Current 2020 Method
 #### Helpful Links
-- [npm oneagent package](https://www.npmjs.com/package/@dynatrace/oneagent (https://www.npmjs.com/package/@dynatrace/oneagent)
+- [npm oneagent package](https://www.npmjs.com/package/@dynatrace/oneagent)
 
 #### Description
 Instead, we simply follow the normal oneagent npm module instructions for lamda. At the top of our lambda function, we do the following:
