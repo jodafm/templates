@@ -48,7 +48,7 @@ resources:
           Ref: ApiGatewayRestApi
         StageName: ${self:provider.stage}
       DependsOn:
-        - ApiGatewayMethodTest2Any # (REQUIRED) This can be any Method on the API
+        - ApiGatewayMethodTestAny # (REQUIRED) This can be any Method on the API
     
     # Base Path Mapping
     BasePathMapping:
