@@ -44,3 +44,8 @@ the publishers NPM team.
 When setting up our teams and pipelines in this way, we can decide who gets to publish, who doesnt, when it happens, under which circumstances it happens in the context of our branching strategy. This allows us to centralize permissions and decision making here rather than on multiple platforms.
 
 The alternative is to manage NPM teams and keep track of who has permissions to what on which npm package.
+
+
+## Private NPM Package Docementation Patternm
+
+- [Example](./examples/privateNpmPackage/README.md)
