@@ -46,6 +46,11 @@ When setting up our teams and pipelines in this way, we can decide who gets to p
 The alternative is to manage NPM teams and keep track of who has permissions to what on which npm package.
 
 
-## Private NPM Package Docementation Patternm
+## Private NPM Package Documentation Pattern
+It is important to have our private NPM packages well documented so others within our company can use them easily. Important sections to have are:
+- Installation Instructions
+- API documentation for the package
+- Examples of how a developer could use this package in their code
 
-- [Example](./examples/privateNpmPackage/README.md)
+
+[Example Documentation for a Private NPM Package](./examples/privateNpmPackage/README.md)
