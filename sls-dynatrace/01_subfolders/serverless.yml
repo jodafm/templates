@@ -12,7 +12,7 @@ functions:
   hello:
     handler: src/handlers/serviceA/node_modules/@dynatrace/oneagent/index.handler
     environment:
-      DT_LAMBDA_HANDLER: "src/handlers/serviceA/index.somethingElse"
+      DT_LAMBDA_HANDLER: "src/handlers/serviceA/index.handler"
     
     events:
       - http:
