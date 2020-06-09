@@ -6,99 +6,78 @@ You can simplify the `request.get` syntax a lot more if you create a helper file
 
 Before:
 
-```jsx
-request.get({
-  "headers": {
-    "Authorization": auth,
-    "content-type": "application/json",
-    "Accept": "application/json",
-    "client_id": client_id,
-    "client_secret": client_secret
-  },
+```js
+const request = require('request')
 
-  "url": countryCodeURL,
-  "body": ''
-}, (error, response, body) => {
-  if (error) {
-    console.log("There is some error from EIP");
-    resolve({
-      statusCode: 500,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "X-Content-Type-Options": "nosniff",
-        "X-XSS-Protection": "1;mode=block",
-        "Strict-Transport-Security": "max-age=63072000"
-      },
-      body: JSON.stringify(error)
-    });
-  }
-  else {
-    console.log("Inside success section of request.get");
-  }
-})
+const main function = (event, ctx, cb) => {
+  request.get({ headers, url: url, body: body
+  }, (error, response, body) => {
+    if (error) {
+      // handle error
+      cb('error)
+    } else {
+      // handle success
+      // logic for stepA...
+      
+      request.get({ headers, url: url, body: body
+      }, (error, response, body) => {
+        if (error) {
+          // handle error
+          cb('error)
+        } else {
+          // handle success
+          // logic for stepB...
+          
+          request.get({ headers, url: url, body: body
+          }, (error, response, body) => {
+            if (error) {
+              // handle error
+              cb('error)
+            } else {
+              // handle success
+              // logic for stepC...
+              
+              cb('success')
+            }
+          })
+        }
+      })
+    }
+  })
+}
 ```
 
 After:
 
-The handler.js (or index.js) file
+```js
+const request = require('request')
 
-```jsx
-const { getRequest, serverSuccess, serverError } = require('../helpers/http');
-
-exports.handler = async event => {
-  try {
-    let response = await getRequest({
-      headers,
-      url,
-      body
-    });
-    return serverSuccess(response);
-  } catch (err) {
-    return serverError(err);
-  }
-}
-```
-
-And the helper file
-
-```jsx
-const request = require('request');
-
-const http = {};
-
-http.serverError = mainResObject => ({
-  statusCode: 500,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "X-Content-Type-Options": "nosniff",
-    "X-XSS-Protection": "1;mode=block",
-    "Strict-Transport-Security": "max-age=63072000"
-  },
-  body: JSON.stringify(mainResObject)
-});
-
-http.success = mainResObject => ({
-  statusCode: 200,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "X-Content-Type-Options": "nosniff",
-    "X-XSS-Protection": "1;mode=block",
-    "Strict-Transport-Security": "max-age=63072000"
-  },
-  body: JSON.stringify(mainResObject)
-});
-
-http.getRequest = (params, method) => {
+const getRequest = (params) => {
   return new Promise((resolve, reject) => {
     request.get(params, (err, res, body) => {
       if(err) {
-        reject(err);
+        reject(err)
       } else {
-        resolve(body);
+        resolve(body)
       }
-    });
-  });
-};
+    })
+  })
+}
 
-module.exports = http;
+exports.handler = async () => {
+  try {
+    const stepA = await getRequest(params)
+    // logic for stepA...
+    
+    const stepB = await getRequest(params)
+    // logic for stepB...
+    
+    const stepC = await getRequest(params)
+    // logic for stepC...
+    
+    return stepC
+  } catch(e) {
+    return 'error'
+  }
+}
 ```
