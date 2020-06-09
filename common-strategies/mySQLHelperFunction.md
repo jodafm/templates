@@ -3,8 +3,8 @@
 - [Pattern detailing this task](https://github.com/serverless-guru/templates/tree/master/nodejs-callbacksToAsyncAwait)
 - Keep in mind all await functions must be inside a async function
 
+Instead of using callbacks:
 ```jsx
-// Instead of using callbacks
 const main = () => {
   connection.query(sqlA, function(err, data) {
     if (err) {
@@ -28,8 +28,10 @@ const main = () => {
     }
   }
 }
+```
 
-// Wrap MySQL Queries in promises
+We can instead wrap MySQL Queries in promises and keep all high level logic and orchestration simple in an async main function
+```js
 const getDataA = (connection, data) => {
   return new Promise((res, rej) => {
     const sqlA = `...sql command`
@@ -66,7 +68,6 @@ const getDataC = (connection, data) => {
   })
 }
 
-// Keep all high level logic and orchestration simple in an async main function
 const main = async () => {
   try {
     const resA await getDataA(connection, data)
