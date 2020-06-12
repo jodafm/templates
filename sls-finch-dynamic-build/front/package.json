@@ -5,12 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "ENDPOINT=$(npm run get-endpoint-dev  | grep https) webpack --watch",
-    "get-endpoint-dev": "sls output get --name=ENDPOINT --app finch --service=sls-finch-example-back",
-    "build-dev": "ENDPOINT=$(npm run get-endpoint-dev | grep https) webpack",
+    "build-dev": "STAGE=dev bash buildWithEnv.bash",
     "deploy-dev": "npm run build-dev && sls client deploy --no-confirm",
-    "get-endpoint-prod": "sls output get --name=ENDPOINT --app finch --service=sls-finch-example-back --stage=prod",
-    "build-prod": "ENDPOINT=$(npm run get-endpoint-prod | grep https) webpack",
-    "deploy-prod": "npm run build-prod && sls client deploy --no-confirm --stage=prod"
+    "build-prod": "STAGE=prod bash buildWithEnv.bash",
+    "deploy-prod": "npm run build-prod && sls client deploy --no-confirm"
   },
   "keywords": [],
   "author": "",

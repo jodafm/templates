@@ -29,3 +29,4 @@ functions:
 
 outputs:
   ENDPOINT: { "Fn::Join" : ["", [" https://", { "Ref" : "ApiGatewayRestApi" }, ".execute-api.${self:custom.region}.amazonaws.com/${self:custom.stage}" ] ]  }
+  KEY: example123

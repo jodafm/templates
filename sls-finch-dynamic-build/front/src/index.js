@@ -4,6 +4,7 @@ const endpointsMap = endpoint => ({
 })
 
 const endpoints = endpointsMap(process.env.ENDPOINT)
+const key = process.env.KEY
 
 console.log('1: ', endpoints.endpoint1)
 console.log('2: ', endpoints.endpoint2)
