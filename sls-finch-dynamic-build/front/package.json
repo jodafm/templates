@@ -7,8 +7,8 @@
     "dev": "ENDPOINT=$(npm run get-endpoint-dev  | grep https) webpack --watch",
     "build-dev": "STAGE=dev bash buildWithEnv.bash",
     "deploy-dev": "npm run build-dev && sls client deploy --no-confirm",
-    "build-prod": "STAGE=prod bash buildWithEnv.bash",
-    "deploy-prod": "npm run build-prod && sls client deploy --no-confirm"
+    "ci-build-prod": "STAGE=prod /bin/sh buildWithEnv.bash",
+    "ci-deploy-prod": "npm run build-prod && sls client deploy --no-confirm"
   },
   "keywords": [],
   "author": "",
