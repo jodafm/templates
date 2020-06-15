@@ -55,3 +55,12 @@ It is important to have our private NPM packages well documented so others withi
 
 
 [Example Documentation for a Private NPM Package](./examples/privateNpmPackage/README.md)
+
+
+
+## FAQ
+#### When should I make a node module?
+- when you are solving a common problem others will be solving in other services
+- when you don’t want to write what you have written again
+- when what you are writing is stable
+- when what you are writing is generic
