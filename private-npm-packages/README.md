@@ -9,6 +9,7 @@
 - [6. Publishing a private NPM package though a CI Pipeline](https://www.loom.com/share/526196810d1c4cb1ba21f3d3854fbc52)
 - [7. Installing a private NPM package in a CI Pipeline](https://www.loom.com/share/a466160a93704bb2a382d3a558dde0c6)
 - [8. Serverless Guru's Opinionated Approach](https://www.loom.com/share/8c6a1ba360774c0c86a75951795e18c8)
+- [9. Strategies for managing dependencies in Private NPM packages](https://www.loom.com/share/c0c816fd1a4c4e81941f1259c57d4261)
 
 
 ## Helpful Links
