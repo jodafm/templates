@@ -11,10 +11,10 @@ pipelines:
             - npm install -g serverless
             - /bin/sh deploy.bash         
             - export SLS_DEBUG=*
-            - sls package --package=./artifact
+            - sls package --package=artifact
 
           artifacts:
-            - artifact/**
+            - .serverless/**
 
       - step:
           name: Deploy to dev
@@ -24,7 +24,7 @@ pipelines:
           script:      
             - npm install -g serverless
             - export SLS_DEBUG=*
-            - serverless deploy --stage=dev
+            - serverless deploy --stage=dev --package=artifact
 
       - step:
           name: Deploy to staging
@@ -34,4 +34,4 @@ pipelines:
           script:      
             - npm install -g serverless
             - export SLS_DEBUG=*
-            - serverless deploy --stage=staging
+            - serverless deploy --stage=staging --package=artifact
