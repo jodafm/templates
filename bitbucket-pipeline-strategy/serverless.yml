@@ -1,0 +1,31 @@
+service: pipeline-standardization
+org: garysjennings
+app: inc
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    STAGE: ${opt:stage, "dev"}
+
+package:
+  artifact: ./artifact/pipeline-standardization.zip
+
+plugins:
+  - serverless-pseudo-parameters
+
+functions:
+  endpointA:
+    handler: serviceA/handler.hello
+    events:
+      - http:
+          path: /a
+          method: get
+
+  endpointB:
+    handler: serviceB/handler.hello
+    events:
+      - http:
+          path: /b
+          method: get
+
