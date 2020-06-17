@@ -1,6 +1,6 @@
 service: pipeline-standardization
-org: garysjennings
-app: inc
+org: YOUR_ORG
+app: YOUR_APP
 
 provider:
   name: aws
