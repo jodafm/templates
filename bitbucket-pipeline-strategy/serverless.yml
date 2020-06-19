@@ -1,12 +1,13 @@
 service: pipeline-standardization
-org: garysjennings
-app: inc
+org: YOUR_ORG
+app: YOUR_APP
 
 provider:
   name: aws
   runtime: nodejs12.x
   region: us-east-2
   environment:
+    STAGE: ${opt:stage, "dev"}
     TABLE: ${self:service}-${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
@@ -22,8 +23,10 @@ provider:
 plugins:
   - serverless-pseudo-parameters
 
+
 functions:
   endpointA:
+    name: ${self:service}-endpointA-${opt:stage, self:provider.stage}
     handler: serviceA/handler.hello
     events:
       - http:
@@ -31,6 +34,7 @@ functions:
           method: get
 
   endpointB:
+    name: ${self:service}-endpointB-${opt:stage, self:provider.stage}
     handler: serviceB/handler.hello
     events:
       - http:
