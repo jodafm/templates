@@ -1,38 +1,35 @@
-type Schema {
-  query: Query
-  mutation: Mutation
+type Task {
+	PK: String!
+	SK: String!
+	status: String
 }
 
-type Query {
-  listNotes: [Note]
-  getNote(id: String!): Note
-  getNoteById(id: String!): Note
+input CreateTaskInput {
+	PK: String!
+	SK: String!
+	status: String
+}
+
+input UpdateTaskInput {
+	PK: String!
+	SK: String!
+	status: String
 }
 
 type Mutation {
-  createNote(input: CreateNoteInput!): Note
-  deleteNote(input: DeleteNoteInput!): Note
-  updateNote(input: UpdateNoteInput!): Note
+	createTask(input: CreateTaskInput!): Task
+	updateToComplete(input: UpdateTaskInput!): Task
 }
 
-type Note {
-  id: String!
-  title: String
-  content: String
+type Query {
+	listTasks: [Task]
 }
 
-input CreateNoteInput {
-	id: String!
-  title: String
-  content: String
+type Subscription {
+	onCompleted(PK: String, SK: String, status: String): Task
+		@aws_subscribe(mutations: ["updateToComplete"])
 }
 
-input DeleteNoteInput {
-	id: String!
-}
 
-input UpdateNoteInput {
-	id: String!
-  title: String
-  content: String
-}
+
+

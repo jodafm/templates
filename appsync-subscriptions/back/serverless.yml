@@ -9,6 +9,8 @@ provider:
   runtime: nodejs12.x
   region: ${opt:region, "us-east-2"}
   stage: ${opt:stage, "dev"}
+  environment:
+    TABLE: ${self:service}-${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -22,11 +24,21 @@ provider:
 custom:
   appSync:
     name: sls-f-appsync-example-api
-    authenticationType: AWS_IAM
+    authenticationType: API_KEY
     mappingTemplates:
-      - dataSource: NotesLambda
+      - dataSource: lambda
         type: Query
-        field: getNoteById
+        field: listTasks
+        request: request.vtl
+        response: response.vtl
+      - dataSource: lambda
+        type: Mutation
+        field: createTask
+        request: request.vtl
+        response: response.vtl
+      - dataSource: lambda
+        type: Mutation
+        field: updateToComplete
         request: request.vtl
         response: response.vtl
       
@@ -34,21 +46,19 @@ custom:
     serviceRole: AppSyncServiceRole
     dataSources:
       - type: AWS_LAMBDA
-        name: NotesLambda
+        name: lambda
         description: Notes Lambda function
         config:
           functionName: mainLambda-${opt:stage, "dev"}
-         # lambdaFunctionArn: ${self:custom.lambda.notesLambda.arn}
-      
+          lambdaFunctionArn: { "Fn::GetAtt": ["MainLambdaFunction", "Arn" ] }
 
-# example of setting up a lambda function
+
 functions:
-  mainLambda:
+  main:
     name: mainLambda-${opt:stage, "dev"}
-    handler: handler.main
+    handler: src/handler.main
 
 
-# example of cloudformation resources
 resources:
   Resources:
       productsTable:
@@ -58,7 +68,11 @@ resources:
               AttributeDefinitions:
                   - AttributeName: PK
                     AttributeType: S
+                  - AttributeName: SK
+                    AttributeType: S
               KeySchema:
                   - AttributeName: PK
                     KeyType: HASH
+                  - AttributeName: SK
+                    KeyType: RANGE
               BillingMode: PAY_PER_REQUEST
