@@ -1,0 +1,64 @@
+service: sls-f-appsync-example
+
+plugins:
+  - serverless-appsync-plugin
+  - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${opt:region, "us-east-2"}
+  stage: ${opt:stage, "dev"}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+          - dynamodb:Query
+          - dynamodb:GetItem
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:DeleteItem
+      Resource: "*"
+  
+custom:
+  appSync:
+    name: sls-f-appsync-example-api
+    authenticationType: AWS_IAM
+    mappingTemplates:
+      - dataSource: NotesLambda
+        type: Query
+        field: getNoteById
+        request: request.vtl
+        response: response.vtl
+      
+    mappingTemplatesLocation: src/mapping-templates
+    serviceRole: AppSyncServiceRole
+    dataSources:
+      - type: AWS_LAMBDA
+        name: NotesLambda
+        description: Notes Lambda function
+        config:
+          functionName: mainLambda-${opt:stage, "dev"}
+         # lambdaFunctionArn: ${self:custom.lambda.notesLambda.arn}
+      
+
+# example of setting up a lambda function
+functions:
+  mainLambda:
+    name: mainLambda-${opt:stage, "dev"}
+    handler: handler.main
+
+
+# example of cloudformation resources
+resources:
+  Resources:
+      productsTable:
+          Type: AWS::DynamoDB::Table
+          Properties:
+              TableName: ${self:service}-${opt:stage, self:provider.stage}
+              AttributeDefinitions:
+                  - AttributeName: PK
+                    AttributeType: S
+              KeySchema:
+                  - AttributeName: PK
+                    KeyType: HASH
+              BillingMode: PAY_PER_REQUEST
